@@ -1,0 +1,60 @@
+{
+  "name": "a-edge-extends-types",
+  "type": "module",
+  "version": "0.0.2",
+  "main": "index.js",
+  "module": "index.js",
+  "typings": "index.d.ts",
+  "author": "lmssee  <lmssee@outlook.com>  (https://lmssee.com)",
+  "description": "some (not all) edge extends types",
+  "scripts": {
+    "build": "npx ixxx rm dist && npm run b",
+    "b": "rollup --config rollup.config.js && tsc -p tsconfig.types.json",
+    "eslint": "ixxx cls && eslint src",
+    "beautify": "npm run prettier",
+    "prettier": "ixxx cls && prettier . --write",
+    "versionPatch": "npm version patch --force --no-git-tag-version --allow-same-version=true",
+    "only-up": "cd dist && npm publish && cd ../",
+    "up": "npm run versionPatch && npm run build && npm run only-up"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "src/"
+  ],
+  "keywords": [
+    "edge-extends-types"
+  ],
+  "license": "ISC",
+  "homepage": "https://lmssee.com",
+  "bugs": {
+    "url": "https://github.com/lmssee/edge-extends-types/issues",
+    "email": "lmssee@outlook.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lmssee/edge-extends-types.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.7.0",
+    "@rollup/plugin-commonjs": "^25.0.8",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.14.11",
+    "eslint": "^8.57.0",
+    "globals": "^15.8.0",
+    "javascript-obfuscator": "^4.1.1",
+    "prettier": "3.3.2",
+    "rollup-plugin-cleanup": "^3.2.1",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-obfuscator": "^1.1.0",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^7.16.1"
+  }
+}
