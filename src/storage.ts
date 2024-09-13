@@ -1,4 +1,4 @@
-type onChanged = {
+export type OnChangedT = {
   addListener(
     callback: (
       pref: {
@@ -11,7 +11,7 @@ type onChanged = {
     ) => undefined,
   ): void;
 };
-type callback = (result: { [key: string]: unknown }) => undefined;
+export type CallbackT = (result: { [key: string]: unknown }) => undefined;
 
 export type Storage = {
   AccessLevel: {
@@ -21,21 +21,21 @@ export type Storage = {
   local: {
     QUOTA_BYTES: number;
     clear(): void;
-    get(keys: string[], callback?: callback): void;
+    get(keys: string[], callback?: CallbackT): void;
     getBytesInUse(): void;
-    onChanged: onChanged;
-    remove(list: string[], callback?: callback): void;
-    set(data: { [key: string]: unknown }, callback?: callback): void;
+    onChanged: OnChangedT;
+    remove(list: string[], callback?: CallbackT): void;
+    set(data: { [key: string]: unknown }, callback?: CallbackT): void;
   };
   managed: {
     clear(): void;
-    get(keys: string[], callback?: callback): void;
+    get(keys: string[], callback?: CallbackT): void;
     getBytesInUse(): void;
-    onChanged: onChanged;
-    remove(list: string[], callback?: callback): void;
-    set(data: { [key: string]: unknown }, callback?: callback): void;
+    onChanged: OnChangedT;
+    remove(list: string[], callback?: CallbackT): void;
+    set(data: { [key: string]: unknown }, callback?: CallbackT): void;
   };
-  onChanged: {};
+  onChanged: OnChangedT;
   sync: {
     MAX_ITEMS: number;
     MAX_SUSTAINED_WRITE_OPERATIONS_PER_MINUTE: number;
@@ -44,10 +44,10 @@ export type Storage = {
     QUOTA_BYTES_PER_ITEM: number;
     QUOTA_BYTES: number;
     clear(): void;
-    get(keys: string[], callback?: callback): void;
+    get(keys: string[], callback?: CallbackT): void;
     getBytesInUse(): void;
-    onChanged: onChanged;
-    remove(list: string[], callback?: callback): void;
-    set(data: { [key: string]: unknown }, callback?: callback): void;
+    onChanged: OnChangedT;
+    remove(list: string[], callback?: CallbackT): void;
+    set(data: { [key: string]: unknown }, callback?: CallbackT): void;
   };
 };
