@@ -31,11 +31,11 @@ export type Tabs = {
   /** 查询当前的标签 */
   query(
     data: { active?: boolean; currentWindow?: boolean; [key: string]: unknown },
-    callback: (tabList: Tab[]) => void,
-  ): void;
+    callback: (tabList: Tab[]) => undefined,
+  ): undefined;
   sendMessage(
     id: number,
     message: unknown,
-    callback?: (response: { [key: string]: unknown }) => void,
-  ): void;
+    callback?: (response: { [key: string]: unknown }) => undefined,
+  ): undefined;
 };

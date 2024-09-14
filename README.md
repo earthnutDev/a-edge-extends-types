@@ -29,6 +29,7 @@ Only a very small part of the list is given at the moment, as shown below：
 
 - action
 - runtime
+  - onload
   - sendMessage
   - onMessage
     - addListener

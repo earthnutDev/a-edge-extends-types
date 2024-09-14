@@ -46,6 +46,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@rollup/rollup-darwin-arm64": "^4.21.3",
     "@types/node": "^20.14.11",
     "eslint": "^8.57.0",
     "globals": "^15.8.0",

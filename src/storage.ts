@@ -9,7 +9,7 @@ export type OnChangedT = {
       },
       areaName: 'local' | 'sync',
     ) => undefined,
-  ): void;
+  ): undefined;
 };
 export type CallbackT = (result: { [key: string]: unknown }) => undefined;
 
@@ -20,20 +20,20 @@ export type Storage = {
   };
   local: {
     QUOTA_BYTES: number;
-    clear(): void;
-    get(keys: string[], callback?: CallbackT): void;
-    getBytesInUse(): void;
+    clear(): undefined;
+    get(keys: string[], callback?: CallbackT): undefined;
+    getBytesInUse(): undefined;
     onChanged: OnChangedT;
-    remove(list: string[], callback?: CallbackT): void;
-    set(data: { [key: string]: unknown }, callback?: CallbackT): void;
+    remove(list: string[], callback?: CallbackT): undefined;
+    set(data: { [key: string]: unknown }, callback?: CallbackT): undefined;
   };
   managed: {
-    clear(): void;
-    get(keys: string[], callback?: CallbackT): void;
-    getBytesInUse(): void;
+    clear(): undefined;
+    get(keys: string[], callback?: CallbackT): undefined;
+    getBytesInUse(): undefined;
     onChanged: OnChangedT;
-    remove(list: string[], callback?: CallbackT): void;
-    set(data: { [key: string]: unknown }, callback?: CallbackT): void;
+    remove(list: string[], callback?: CallbackT): undefined;
+    set(data: { [key: string]: unknown }, callback?: CallbackT): undefined;
   };
   onChanged: OnChangedT;
   sync: {
@@ -43,11 +43,11 @@ export type Storage = {
     MAX_WRITE_OPERATIONS_PER_MINUTE: number;
     QUOTA_BYTES_PER_ITEM: number;
     QUOTA_BYTES: number;
-    clear(): void;
-    get(keys: string[], callback?: CallbackT): void;
-    getBytesInUse(): void;
+    clear(): undefined;
+    get(keys: string[], callback?: CallbackT): undefined;
+    getBytesInUse(): undefined;
     onChanged: OnChangedT;
-    remove(list: string[], callback?: CallbackT): void;
-    set(data: { [key: string]: unknown }, callback?: CallbackT): void;
+    remove(list: string[], callback?: CallbackT): undefined;
+    set(data: { [key: string]: unknown }, callback?: CallbackT): undefined;
   };
 };
