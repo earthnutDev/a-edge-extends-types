@@ -1,7 +1,7 @@
 {
   "name": "a-edge-extends-types",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "index.js",
   "module": "index.js",
   "typings": "index.d.ts",
@@ -23,7 +23,8 @@
     "src/"
   ],
   "keywords": [
-    "edge-extends-types"
+    "edge-extends-types",
+    "rollup-plugin"
   ],
   "license": "ISC",
   "homepage": "https://lmssee.com",
@@ -48,6 +49,7 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@rollup/rollup-darwin-arm64": "^4.21.3",
     "@types/node": "^20.14.11",
+    "@types/rollup": "^0.51.4",
     "eslint": "^8.57.0",
     "globals": "^15.8.0",
     "javascript-obfuscator": "^4.1.1",

@@ -1,5 +1,15 @@
 import { Tab } from './tabs';
 
+export type CmROMASender = {
+  documentId: string;
+  documentLifecycle: string;
+  frameId: number;
+  id: string;
+  origin: string;
+  tab: Tab;
+  url: string;
+};
+
 export type Runtime = {
   /** 发送消息，多用以嵌入脚本 */
   sendMessage(
@@ -11,15 +21,7 @@ export type Runtime = {
     addListener(
       listenerEvent: (
         request: unknown,
-        sender: {
-          documentId: string;
-          documentLifecycle: string;
-          frameId: number;
-          id: string;
-          origin: string;
-          tab: Tab;
-          url: string;
-        },
+        sender: CmROMASender,
         sendResponse: unknown,
       ) => undefined,
     ): undefined;

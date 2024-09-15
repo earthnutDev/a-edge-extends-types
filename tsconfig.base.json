@@ -9,7 +9,10 @@
     "esModuleInterop": true,
     "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
-    "lib": ["ESNext", "DOM"],
-    "sourceMap": false
+    "lib": [
+      "ESNext",
+      "DOM"
+    ],
+    "sourceMap": false,
   }
 }

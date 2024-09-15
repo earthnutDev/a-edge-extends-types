@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 // import terser from '@rollup/plugin-terser';
-import cleanup from 'rollup-plugin-cleanup';
+
 import copy from 'rollup-plugin-copy';
 
 /** 生成  npm 文件的打包配置文件 */
@@ -13,7 +13,7 @@ export default {
     {
       format: 'es',
       entryFileNames: 'index.js',
-      preserveModules: true,
+      preserveModules: false,
       sourcemap: false,
       exports: 'named',
       dir: 'dist',
@@ -30,7 +30,6 @@ export default {
     json(),
     typescript({}),
     // 去除无用代码
-    cleanup(),
     copy({
       targets: [
         { src: 'package.json', dest: 'dist' },

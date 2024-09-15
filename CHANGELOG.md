@@ -1,9 +1,10 @@
 # edge-extends-types
 
-## 0.0.3 (9 月 13 日 2024 年)
+## 0.0.5 (9 月 15 日 2024 年)
 
 - `runtime` 添加 `onload` 方法，用于测试时重新加载扩展
 - 修复 `runtime` 的 `onMessage.addListener` 类型错误
+- 添加了 `keepChrome` rollup 插件，这也是我的第一款 rollup 插件，值的庆贺，一个煮面加根火腿肠
 
 ## 0.0.3 (9 月 13 日 2024 年)
 
