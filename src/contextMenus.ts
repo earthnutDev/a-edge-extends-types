@@ -38,7 +38,7 @@ export type ContextType =
  *  - `title` {@link String} 要在作品中显示的文本
  *  - `type` {@link Enum} 'normal' | 'checkbox' | 'radio' | 'separator' 菜单类型
  *  -  `visible` {@link Boolean} 可见性
- *  -  `onclick(info:OnclickData, tab:Tab)=>undefined` 回调
+ *  -  `onclick?(info:OnclickData, tab:Tab)=>undefined` 回调
  */
 export type CreateProperties = {
   /** 是否已选择 */
@@ -63,7 +63,7 @@ export type CreateProperties = {
   /** 可见 */
   visible?: boolean;
   /** 点击事件 */
-  onclick(info: OnclickData, tab: Tab): undefined;
+  onclick?(info: OnclickData, tab: Tab): undefined;
 };
 
 /** # 点击数据
