@@ -1,7 +1,7 @@
 {
   "name": "a-edge-extends-types",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "main": "index.js",
   "module": "index.js",
   "typings": "index.d.ts",
@@ -17,6 +17,18 @@
     "only-up": "cd dist && npm publish && cd ../",
     "up": "npm run versionPatch && npm run build && npm run only-up"
   },
+  "exports": {
+    ".": {
+      "default": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./tab": "./src/tabs.d.ts",
+    "./i18n": "./src/i18n.d.ts",
+    "./action": "./src/action.d.ts",
+    "./runtime": "./src/runtime.d.ts",
+    "./storage": "./src/storage.d.ts",
+    "./tts": "./src/tts.d.ts"
+  },
   "files": [
     "index.js",
     "index.d.ts",
@@ -27,7 +39,7 @@
     "rollup-plugin"
   ],
   "license": "ISC",
-  "homepage": "https://lmssee.com",
+  "homepage": "https://lmssee.com/edge-extends-types",
   "bugs": {
     "url": "https://github.com/lmssee/edge-extends-types/issues",
     "email": "lmssee@outlook.com"

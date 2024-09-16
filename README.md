@@ -3,7 +3,12 @@
 **This is not a rollup plugin, but a type package for developing 'edge extend' using ts**
 
 like title show。
-A description of the TS type of an edge extends, just a little bit, only some I used was given
+A description of the TS type of an [edge extends](), just a little bit, only some I used was given
+
+## Development reference
+
+- [edge extends reference doc](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/)
+- [chrome api reference](https://developer.chrome.com/docs/extensions/reference/api/tts)
 
 ## language
 
@@ -51,7 +56,10 @@ export default {
 
 Only a very small part of the list is given at the moment, as shown below：
 
-- action
+- action (none)
+- contextMenus
+- i18n (all)
+- tts (all)
 - runtime
   - onload
   - sendMessage
