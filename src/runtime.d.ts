@@ -6,9 +6,11 @@
  * @CreateDate  周一  09/11/2024
  * @Description en
  ****************************************************************************/
-import { Tab } from './tabs';
 
-export type CmROMASender = {
+/**
+ *  消息发送者
+ */
+type CmRuntimeSender = {
   documentId: string;
   documentLifecycle: string;
   frameId: number;
@@ -24,22 +26,22 @@ export type CmROMASender = {
  * - `reload`       重新加载扩展
  *
  */
-export type Runtime = {
+declare namespace chrome.runtime {
   /** 发送消息，多用以嵌入脚本 */
-  sendMessage(
+  export function sendMessage(
     data: unknown,
     callback?: (result: unknown) => undefined,
   ): undefined;
   /** 消息机制 */
-  onMessage: {
-    addListener(
+  declare namespace onMessage {
+    export function addListener(
       listenerEvent: (
         request: unknown,
-        sender: CmROMASender,
+        sender: CmRuntimeSender,
         sendResponse: unknown,
       ) => undefined,
     ): undefined;
-  };
+  }
   /** 重新加载扩展 */
-  reload(): undefined;
-};
+  export function reload(): undefined;
+}

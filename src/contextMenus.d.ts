@@ -7,12 +7,10 @@
  * @Description 邮件快捷键使用
  ****************************************************************************/
 
-import { Tab } from './tabs';
-
 /** # 右键的类型
  *  支持上下文
  */
-export type ContextType =
+type CmContextMenusCPContext =
   | 'all'
   | 'page'
   | 'frame'
@@ -29,7 +27,7 @@ export type ContextType =
 
 /** # 添加的属性设定
  *  - `checked` {@link Boolean} 是否已选择
- *  - `contexts` {@link ContextType}[]    上下文。数组
+ *  - `contexts` {@link CmContextMenusCPContext}[]    上下文。数组
  *  - `documentUrlPatterns` {@link String}[]  将内容限制为仅应用于网址与某一指定格式相符的文档或框架
  *  - `enabled` {@link Boolean}  此上下文菜单项处于启用状态还是停用状态。默认为 `true`
  *  - `id` {@link String}   要分配给此内容的唯一 ID。活动页面必须使用。不能与此扩展程序的另一个 ID 相同
@@ -38,13 +36,13 @@ export type ContextType =
  *  - `title` {@link String} 要在作品中显示的文本
  *  - `type` {@link Enum} 'normal' | 'checkbox' | 'radio' | 'separator' 菜单类型
  *  -  `visible` {@link Boolean} 可见性
- *  -  `onclick?(info:OnclickData, tab:Tab)=>undefined` 回调
+ *  -  `onclick?(info:CmContextMenusOnClickData, tab:Tab)=>undefined` 回调
  */
-export type CreateProperties = {
+type CmContextMenusCreateProperties = {
   /** 是否已选择 */
   checked?: boolean;
   /** 上下文 */
-  context?: ContextType[];
+  contexts?: CmContextMenusCPContext[];
   /** 将内容限制为仅应用于网址与某一指定格式相符的文档或框架 */
   documentUrlPatterns?: string[];
   /** 此上下文菜单项处于启用状态还是停用状态。默认为 `true` */
@@ -63,7 +61,7 @@ export type CreateProperties = {
   /** 可见 */
   visible?: boolean;
   /** 点击事件 */
-  onclick?(info: OnclickData, tab: Tab): undefined;
+  onclick?(info: CmContextMenusOnClickData, tab: Tab): undefined;
 };
 
 /** # 点击数据
@@ -81,11 +79,11 @@ export type CreateProperties = {
  *  - `srcUrl` {@link String} 对于包含“src”的元素，系统会显示该元素网址
  *  - `wasChecked` {@link Boolean} 指示复选框或单选项在点击前的状态的标志
  */
-export type OnclickData = {
+type CmContextMenusOnClickData = {
   /** 点击后选择的状态 */
   checked?: boolean;
   /** 是否可编辑 */
-  editable?: boolean;
+  editable: boolean;
   /** 框架 id */
   frameId?: string | number;
   /** 用户点击上下文菜单的元素框架网址 */
@@ -95,7 +93,7 @@ export type OnclickData = {
   /** “image”“video”或“audio”之一如果上下文菜单已在这类元素中激活 */
   mediaType?: string;
   /**   用户点击的菜单项的 ID */
-  menuItemId?: string | number;
+  menuItemId: string | number;
   /** 菜单项的网页的网址 */
   pageUrl?: string;
   /** 所点击项目的父级 ID（如果有） */
@@ -110,25 +108,24 @@ export type OnclickData = {
 
 /**  # 右键菜单栏设置
  *
- *  - `ACTION_MENU_TOP_LEVEL_LIMIT` {@link Number} 特添加到右键菜单的数量上限
- *  - `create(createProperties: CreateProperties,callback: () => undefined,):number|string` 添加
- *  - `remove(menuItemId:string|number,callback:()=>undefined):Promise<undefined>` 移除特定 id 的项
- *  - `removeAll(callback?:()=>undefined):Promise<undefined>` 移除所有项
- *  -  `update(id: string | number,updateProperties: CreateProperties,callback?: (info: OnclickData, tab: Tab) => undefined,): Promise<undefined>` 更新项
- *  - `onClicked: {addListener(callback: (info: OnclickData, tab: Tab) => undefined,): undefined;}` 点击触发事件
- *
+ *  - `ACTION_MENU_TOP_LEVEL_LIMIT`   特添加到右键菜单的数量上限
+ *  - `create ` 添加
+ *  - `remove ` 移除特定 id 的项
+ *  - `removeAll ` 移除所有项
+ *  -  `update` 更新项
+ *  - `onClicked` 点击触发事件
  *  */
-export type contextMenusT = {
+declare namespace chrome.contextMenus {
   /** 特添加到右键菜单的数量上限 */
-  ACTION_MENU_TOP_LEVEL_LIMIT: number;
+  export const ACTION_MENU_TOP_LEVEL_LIMIT: number;
   /** ## 创建
    *
-   *  **CreateProperties**
+   *  **CmContextMenusCreateProperties**
    *  创建参数
    *  ```ts
-   *  type CreateProperties = {
+   *  type CmContextMenusCreateProperties = {
    *           checked?: boolean;  //  是否已选择
-   *           context?: ContextType[]; // 上下文
+   *           context?: CmContextMenusCPContext[]; // 上下文
    *           documentUrlPatterns?: string[];//  将内容限制为仅应用于网址与某一指定格式相符的文档或框架
    *           enabled?: boolean;//  此上下文菜单项处于启用状态还是停用状态。默认为 `true`
    *           id?: string;//  要分配给此内容的唯一 ID。活动页面必须使用。不能与此扩展程序的另一个 ID 相同
@@ -137,14 +134,14 @@ export type contextMenusT = {
    *           title?: string; //  要在作品中显示的文本
    *           type?: 'normal' | 'checkbox' | 'radio' | 'separator'; //  菜单的类型
    *           visible?: boolean; //  可见
-   *           onclick(info: OnclickData, tab: Tab): undefined;//  点击事件
+   *           onclick(info: CmContextMenusOnClickData, tab: Tab): undefined;//  点击事件
    *      };
    * ````
    *
-   *  **OnclickData**
+   *  **CmContextMenusOnClickData**
    *
    * ```ts
-   *  type OnclickData = {
+   *  type CmContextMenusOnClickData = {
    *           checked?: boolean; // 点击后选择的状态
    *           editable?: boolean; // 是否可编辑
    *           frameId?: string | number; // 框架 id
@@ -161,8 +158,8 @@ export type contextMenusT = {
    * ```
    *
    */
-  create(
-    createProperties: CreateProperties,
+  export function create(
+    createProperties: CmContextMenusCreateProperties,
     callback?: () => undefined,
   ): number | string;
   /** ## 移除
@@ -171,24 +168,24 @@ export type contextMenusT = {
    * @param callback  回调函数
    *
    */
-  remove(
+  function remove(
     menuItemId: string | number,
     callback?: () => undefined,
   ): Promise<undefined>;
   /**  ## 移除所有
    *
    */
-  removeAll(callback?: () => undefined): Promise<undefined>;
+  export function removeAll(callback?: () => undefined): Promise<undefined>;
   /** ## 更新项 */
-  update(
+  export function update(
     id: string | number,
-    updateProperties: CreateProperties,
-    callback?: (info: OnclickData, tab: Tab) => undefined,
+    updateProperties: CmContextMenusCreateProperties,
+    callback?: (info: CmContextMenusOnClickData, tab: Tab) => undefined,
   ): Promise<undefined>;
   /** 用户点击菜单键的触发 */
-  onClicked: {
-    addListener(
-      callback: (info: OnclickData, tab: Tab) => undefined,
+  namespace onClicked {
+    export function addListener(
+      callback: (info: CmContextMenusOnClickData, tab: Tab) => undefined,
     ): undefined;
-  };
-};
+  }
+}

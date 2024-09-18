@@ -1,6 +1,8 @@
 # a edge extends types
 
-**This is not a rollup plugin, but a type package for developing 'edge extend' using ts**
+you must be looking for [`@types/chrome`](https://www.npmjs.com/package/@types/chrome)
+
+~~his is not a rollup plugin, but a type package for developing 'edge extend' using ts~~
 
 like title show。
 A description of the TS type of an [edge extends](), just a little bit, only some I used was given
@@ -12,45 +14,13 @@ A description of the TS type of an [edge extends](), just a little bit, only som
 
 ## language
 
-[English](https://github.com/lmssee/edgeExtendsTypes/blob/main/README.md) [中文](https://github.com/lmssee/edgeExtendsTypes/blob/main/自述文件.md)
+[English](https://github.com/lmssee/npm-a-edge-extends-types/blob/main/README.md) [中文](https://github.com/lmssee/npm-a-edge-extends-types/blob/main/自述文件.md)
 
 ## install
 
 ```sh
 npm install --save a-edge-extends-types@latest
 ```
-
-## use
-
-```ts
-import { chrome } from 'a-edge-extends-types';
-
-/** `content js` use `chrome.runtime` send message to `background js`  */
-chrome.runtime.sendMessage({ message: 'nothing', type: 'random' }, response =>
-  console.log(response),
-);
-```
-
-## Please note the confusion code
-
-If you use the `cleanup` class compression when packing, an error may occur after packing,
-You need to add plugins in the rollup packaging configuration as follows :
-
-```js
-import {...otherPlugins} from 'other-plugin-package';
-import { keepChrome } from 'a-edge-extends-types';
-
-export default {
-  ...otherSetting,
-  plugins:{
-    ...otherPlugins(),
-    keepChrome(),
-  }
-}
-```
-
-- Be sure to put the plugin at the end
-- It may have an impact on the `source map`, but I don't have time to deal with this issue at the moment. In a hurry to find a job
 
 ## illustrate
 
@@ -70,3 +40,4 @@ Only a very small part of the list is given at the moment, as shown below：
   - tab (all)
   - query
   - sendMessage
+  - If you have any questions, you can directly [submit question](https://github.com/lmssee/npm-a-edge-extends-types/issues/new)

@@ -6,7 +6,6 @@
  * @CreateDate  周一  09/16/2024
  * @Description `tts` 语音设定
  ****************************************************************************/
-import { languageListT } from './i18n';
 
 /** # tts 第二参数配置项
  * - enqueue {@link Boolean} 排队还是插队。`true` 则排队，`false` 则插队
@@ -31,7 +30,7 @@ import { languageListT } from './i18n';
  * - voiceName  合成语音的声部的名称，如果为空，则为任何可用语音
  * - volume     音量
  */
-export type ttsSpeakOptionsT = {
+type CmTtsSpeakOptions = {
   /** 若是 `true`,则排队；若为 `false` ，则插队  */
   enqueue?: boolean;
   /** 该插件的 id */
@@ -92,7 +91,7 @@ export type ttsSpeakOptionsT = {
  *  - gender    "male"|"female"      语音所属性别
  *  - remote          {@link Boolean} 是否加载远程语音
  */
-export type TtsVoice = {
+type CmTtsVoice = {
   /** 语音名称 */
   voiceName: string;
   /** 所属语种 */
@@ -118,50 +117,54 @@ export type TtsVoice = {
 }[];
 
 /** #  tts 语言配置
- * - `speak(str:string,options?:ttsSpeakOptionsT,callback:()=>undefined):undefined` 开始
+ * - `speak(str:string,options?:CmTtsSpeakOptions,callback:()=>undefined):undefined` 开始
  * - `stop():undefined;` 停止
- * - `getVoices(callback: (voice: TtsVoice) => undefined): undefined`  获取可用语音
+ * - `getVoices(callback: (voice: CmTtsVoice) => undefined): undefined`  获取可用语音
  * - `isSpeaking(callback:(speaking:boolean)=>undefined):Promise<boolean>` 当前是否在播放
  * - `pause():undefined` 暂停语音
  * - `resume():undefined` 从暂停中恢复
  * -  `onVoiceChanged`  当语音发生变化
  */
-export type ttsT = {
+declare namespace tts {
   /**  开始说话
    *
    * @param  str {@link String} 说话的文本
-   * @param options {@link ttsSpeakOptionsT} 配置的参数
+   * @param options {@link CmTtsSpeakOptions} 配置的参数
    * @param callback  可选的回调函数，使用可在回调中访问 error 设定
    */
-  speak(
+  export function speak(
     str: string,
-    options?: ttsSpeakOptionsT,
+    options?: CmTtsSpeakOptions,
     callback?: () => undefined,
   ): undefined;
 
   /** ## 停止讲话 */
-  stop(): undefined;
+  export function stop(): undefined;
 
   /** ## 获取所有可用的语音数组
    *  @param callback  回调函数
    */
-  getVoices(callback: (voice: TtsVoice) => undefined): undefined;
+  export function getVoices(
+    callback: (voice: CmTtsVoice) => undefined,
+  ): undefined;
 
   /** ## 当前是否已在播放中
    *  @param callback  回调函数，接受一个布尔值参数，无返回值
    *  @returns Promise<boolean>
    */
-  isSpeaking(callback: (speaking: boolean) => undefined): Promise<boolean>;
+  export function isSpeaking(
+    callback: (speaking: boolean) => undefined,
+  ): Promise<boolean>;
   /** ## 暂停
    *
    */
-  pause(): undefined;
+  export function pause(): undefined;
 
   /** ## 从暂停中恢复 */
-  resume(): undefined;
+  export function resume(): undefined;
 
   /** ## 当语音发生变化 */
-  onVoicedChanged: {
-    addListener(callback: () => undefined): undefined;
-  };
-};
+  namespace onVoicedChanged {
+    export function addListener(callback: () => undefined): undefined;
+  }
+}

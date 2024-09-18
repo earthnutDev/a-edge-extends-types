@@ -38,37 +38,7 @@ export function keepChrome(
         }
       }
     },
-    /**  转化部分
-     *
-     * @param codeStr   源文件的的内容
-     * @param fileName     源文件的名称
-     *
-     */
-    // transform(codeStr: string, fileName: string) {
-    //   console.log('打印于 transform');
-    //   console.log(id);
-    //   console.log(code.slice(0, 200));
-    //   console.log(
-    //     /\/\/\s*@preserve something will come if you use rollup cleanup\s*\nvar\s*([a-z]*?)=\{\.*.\}/gm.test(
-    //       code,
-    //     ),
-    //   );
-
-    //   return code.replace(
-    //     /\/\/\s*@preserve something will come if you use rollup cleanup\s*\nvar\s*([a-z]*?)=\{\.*.\}/gm,
-    //     'var $1 = chrome',
-    //   );
-    // },
   };
-}
-
-interface OutputAsset {
-  fileName: string;
-  name: string | undefined;
-  needsCodeReference: boolean;
-  originalFileName: string | null;
-  source: string | Uint8Array;
-  type: 'asset';
 }
 
 interface OutputChunk {
