@@ -99,7 +99,7 @@ declare namespace chrome.storage {
     export function generateKeySync(
       callback?: (keys: string[]) => undefined,
     ): Promise<string[]>;
-    export const onChanged: OnChangedT;
+    export const onChanged: CmStorageOnChanged;
     /** 移除 */
     export function remove(list: string[], callback?: CallbackT): undefined;
     /** 设定值 */

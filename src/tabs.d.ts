@@ -217,7 +217,7 @@ declare namespace chrome.tabs {
   /** 检测浏览器的主要语言 */
   export function detectLanguage(
     tabId?: number,
-    callback?: (language: languageListT) => undefined,
+    callback?: (language: CmI18nLanguage) => undefined,
   ): Promise<string>;
   /** 舍弃某个标签页 */
   export function discard(

@@ -16,7 +16,7 @@ type CmRuntimeSender = {
   frameId: number;
   id: string;
   origin: string;
-  tab: Tab;
+  tab: CmTabsTab;
   url: string;
 };
 
@@ -33,7 +33,7 @@ declare namespace chrome.runtime {
     callback?: (result: unknown) => undefined,
   ): undefined;
   /** 消息机制 */
-  declare namespace onMessage {
+  namespace onMessage {
     export function addListener(
       listenerEvent: (
         request: unknown,

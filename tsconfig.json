@@ -15,16 +15,4 @@
     ],
     "sourceMap": false,
   },
-  "include": [
-    "index.d.ts",
-    "src/**/*.ts",
-    "**.d.ts",
-    "src/**/**/*.ts",
-    "test/**/*.ts",
-    "actions.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist"
-  ]
 }

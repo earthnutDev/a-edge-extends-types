@@ -141,10 +141,10 @@ type detectedLanguageCallbackT = {
 
 /** # i18n
  *
- * -  `detectLanguage(text:string,callback: (result: detectedLanguageCallbackT) => undefined):undefined` 检测出 3 种语言
- * -  `getAcceptLanguages(): Promise<CmI18nLanguage[]>` 支持的语言
- * - `getMessage(opt:| '@@extension_id'| '@@ui_locale'| '@@bidi_dir'| 'bidi_reversed_dir'| 'bidi_start_edge'| 'bidi_end_edge'| string,): string` 获取文本
- * - `getUILanguage(): CmI18nLanguage`  获取浏览器默认文本语言
+ * -  `detectLanguage` 检测出 3 种语言
+ * -  `getAcceptLanguages` 支持的语言
+ * - `getMessage` 获取文本
+ * - `getUILanguage`  获取浏览器默认文本语言
  *
  *  使用：
  *  - 在 manifest 文件中使用，使用 `__MSG_name__` 的形式即可

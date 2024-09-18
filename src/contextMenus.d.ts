@@ -36,7 +36,7 @@ type CmContextMenusCPContext =
  *  - `title` {@link String} 要在作品中显示的文本
  *  - `type` {@link Enum} 'normal' | 'checkbox' | 'radio' | 'separator' 菜单类型
  *  -  `visible` {@link Boolean} 可见性
- *  -  `onclick?(info:CmContextMenusOnClickData, tab:Tab)=>undefined` 回调
+ *  -  `onclick?(info:CmContextMenusOnClickData, tab:CmTabsTab)=>undefined` 回调
  */
 type CmContextMenusCreateProperties = {
   /** 是否已选择 */
@@ -61,7 +61,7 @@ type CmContextMenusCreateProperties = {
   /** 可见 */
   visible?: boolean;
   /** 点击事件 */
-  onclick?(info: CmContextMenusOnClickData, tab: Tab): undefined;
+  onclick?(info: CmContextMenusOnClickData, tab: CmTabsTab): undefined;
 };
 
 /** # 点击数据
@@ -134,7 +134,7 @@ declare namespace chrome.contextMenus {
    *           title?: string; //  要在作品中显示的文本
    *           type?: 'normal' | 'checkbox' | 'radio' | 'separator'; //  菜单的类型
    *           visible?: boolean; //  可见
-   *           onclick(info: CmContextMenusOnClickData, tab: Tab): undefined;//  点击事件
+   *           onclick(info: CmContextMenusOnClickData, tab: CmTabsTab): undefined;//  点击事件
    *      };
    * ````
    *
@@ -168,7 +168,7 @@ declare namespace chrome.contextMenus {
    * @param callback  回调函数
    *
    */
-  function remove(
+  export function remove(
     menuItemId: string | number,
     callback?: () => undefined,
   ): Promise<undefined>;
@@ -180,12 +180,12 @@ declare namespace chrome.contextMenus {
   export function update(
     id: string | number,
     updateProperties: CmContextMenusCreateProperties,
-    callback?: (info: CmContextMenusOnClickData, tab: Tab) => undefined,
+    callback?: (info: CmContextMenusOnClickData, tab: CmTabsTab) => undefined,
   ): Promise<undefined>;
   /** 用户点击菜单键的触发 */
   namespace onClicked {
     export function addListener(
-      callback: (info: CmContextMenusOnClickData, tab: Tab) => undefined,
+      callback: (info: CmContextMenusOnClickData, tab: CmTabsTab) => undefined,
     ): undefined;
   }
 }

@@ -13,7 +13,7 @@
  * - desiredEventTypes  {@link string[]} 侦听的 TTS 事件类型。缺省为所有事件类型
  * - gender   "male"|"female"    语音的性别
  * - rate {@link Number} 语速
- * - lang {@link languageListT} 语言设定
+ * - lang {@link CmI18nLanguage} 语言设定
  * - onEvent(event:(类型见下)=>undefined):undefined 可执行事件
  *      - type 下面是 event.type 的属性。其中，'end'、'interrupted'、'cancelled'、'error' 事件类型为终结
  *          - start        引擎已经开始读出语音
@@ -41,8 +41,8 @@ type CmTtsSpeakOptions = {
   gender: 'male' | 'female';
   /** 语速 {@link Number} */
   rate?: number;
-  /***  语种类型 {@link languageListT} */
-  lang?: languageListT;
+  /***  语种类型 {@link CmI18nLanguage} */
+  lang?: CmI18nLanguage;
   /** 事件，一个事件触发的回调
    *      - type 下面是 event.type 的属性。其中，'end'、'interrupted'、'cancelled'、'error' 事件类型为终结
    *          - start        引擎已经开始读出语音
@@ -125,7 +125,7 @@ type CmTtsVoice = {
  * - `resume():undefined` 从暂停中恢复
  * -  `onVoiceChanged`  当语音发生变化
  */
-declare namespace tts {
+declare namespace chrome.tts {
   /**  开始说话
    *
    * @param  str {@link String} 说话的文本
