@@ -7,7 +7,7 @@
  * @Description 窗口组
  ****************************************************************************/
 
-import { languageListT } from './i18n';
+import { CmI18nLanguage } from './i18n';
 
 /** #  窗口信息
  *
@@ -25,19 +25,19 @@ import { languageListT } from './i18n';
  * -  incognito: boolean  标签是否在无痕模式
  * -  index: number  标签在窗口i的序列
  * -  lastAccessed: number  上次访问该标签的时间
- * -  mutedInfo?: MutedInfo  标签页静音相关
+ * -  mutedInfo?: CmMutedInfo  标签页静音相关
  * -  openerTabId?: boolean  打开盖标签页的名称
  * -  pendingUrl?: string  在提交之前，标签页导航到的网址
  * -  pinned: boolean  是否已固定
  * -  selected: boolean  ~~是否已选择~~ ，官方建议使用 highlighted
  * -  sessionId?: string  绘画的 id
- * -  status?: TabStatus  标签页的状态
+ * -  status?: CmTabStatus  标签页的状态
  * -  title?: string  标题
  * -  url?: string  网址
  * -  width?: number  宽
  * -  windowId: number   窗口的 id
  * */
-export type Tab = {
+export type CmTabsTab = {
   /**  是否活跃 */
   active: boolean;
   /** 在过去的几秒钟是否发声 */
@@ -63,7 +63,7 @@ export type Tab = {
   /** 上次访问该标签的时间 */
   lastAccessed: number;
   /** 标签页静音相关 */
-  mutedInfo?: MutedInfo;
+  mutedInfo?: CmMutedInfo;
   /** 打开盖标签页的名称 */
   openerTabId?: boolean;
   /** 在提交之前，标签页导航到的网址 */
@@ -75,7 +75,7 @@ export type Tab = {
   /** 绘画的 id */
   sessionId?: string;
   /** 标签页的状态 */
-  status?: TabStatus;
+  status?: CmTabStatus;
   /** 标题 */
   title?: string;
   /** 网址 */
@@ -92,7 +92,7 @@ export type Tab = {
  * - complete 完成
  *
  */
-export type TabStatus = 'unloaded' | 'loading' | 'complete';
+export type CmTabStatus = 'unloaded' | 'loading' | 'complete';
 
 /** ## 窗口类型
  * - normal   标注
@@ -102,21 +102,21 @@ export type TabStatus = 'unloaded' | 'loading' | 'complete';
  * - devtools 开发
  *
  */
-export type WindowType = 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
+export type CmWindowType = 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
 
 /** ## 自定义标签页的缩放更改处理方式
  *
  * -  defaultZoomFactor 缩放的级别，在调用 `tab.getZoomSettings` 时返回
- * -  model {@link ZoomSettingMode} 定义缩放的变化
- * - scope {@link ZoomSettingsScope}  缩放的范围
+ * -  model {@link CmZoomSettingMode} 定义缩放的变化
+ * - scope {@link CmZoomSettingsScope}  缩放的范围
  */
-export type ZoomSettings = {
+export type CmZoomSettings = {
   /** 缩放的级别，在调用 `tab.getZoomSettings` 时返回 */
   defaultZoomFactor?: number;
   /** 定义缩放的变化 */
-  model: ZoomSettingMode;
+  model: CmZoomSettingMode;
   /** 缩放的范围 */
-  scope?: ZoomSettingsScope;
+  scope?: CmZoomSettingsScope;
 };
 
 /** ### 缩放的变化
@@ -124,7 +124,7 @@ export type ZoomSettings = {
  * - manual        覆盖自动处理缩放更的的功能
  * - disabled      停用缩放
  * */
-export type ZoomSettingMode = 'automatic' | 'manual' | 'disabled';
+export type CmZoomSettingMode = 'automatic' | 'manual' | 'disabled';
 
 /** ### 缩放更改的
  *  在 `automatic` 模式下，默认为 `pre-origin` ，否则为 `per-tab`
@@ -132,26 +132,26 @@ export type ZoomSettingMode = 'automatic' | 'manual' | 'disabled';
  * - per-origin 缩放更改保留在缩放页面的原点中
  * - per-tab    缩放行为的更改仅在此标签页生效
  */
-export type ZoomSettingsScope = 'per-origin' | 'per-tab';
+export type CmZoomSettingsScope = 'per-origin' | 'per-tab';
 
-/** # MutedInfo
+/** # CmMutedInfo
  *
  *  - extensionId {@link String}  更改静音状态插件的 id
  *  - muted {@link Boolean} 已设置为静音
- *  - reason {@link MutedInfoReason} 标签页设定为静音的原因
+ *  - reason {@link CmMutedInfoReason} 标签页设定为静音的原因
  *
  */
-export type MutedInfo = {
+export type CmMutedInfo = {
   /** 更改静音状态插件的 id */
   extensionId: string;
   /** 已设置为静音 */
   muted: boolean;
   /** 标签页设定为静音的原因 */
-  reason?: MutedInfoReason;
+  reason?: CmMutedInfoReason;
 };
 
 /** 标签页设定为静音的原因 */
-export type MutedInfoReason = 'user' | 'capture' | 'extension';
+export type CmMutedInfoReason = 'user' | 'capture' | 'extension';
 
 /** ## 创建信的标签页
  *   - active: boolean  是否活跃
@@ -162,7 +162,7 @@ export type MutedInfoReason = 'user' | 'capture' | 'extension';
  *  - url?: string 网址 *
  *  - windowId: number  窗口的 id
  */
-export type createPropertiesT = {
+export type CmTabsCreateProperties = {
   /**  是否活跃 */
   active: boolean;
   /** 标签在窗口i的序列 */
@@ -184,7 +184,7 @@ export type createPropertiesT = {
  *
  *
  */
-export type Tabs = {
+export type CmTabs = {
   /** 每秒调用 `captureVisibleTa` 的最大次数，其开销较大，不宜多用 */
   MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND: number;
   /** 表示没有浏览器标签页的 ID */
@@ -213,33 +213,33 @@ export type Tabs = {
   ): Promise<string>;
   /**   */
   create(
-    createProperties: createPropertiesT,
-    callback?: (tab?: Tab) => undefined,
+    createProperties: CmTabsCreateProperties,
+    callback?: (tab?: CmTabsTab) => undefined,
   ): undefined;
   /** 检测浏览器的主要语言 */
   detectLanguage(
     tabId?: number,
-    callback?: (language: languageListT) => undefined,
+    callback?: (language: CmI18nLanguage) => undefined,
   ): Promise<string>;
   /** 舍弃某个标签页 */
   discard(
     tabId?: number,
-    callback?: (tab?: Tab) => undefined,
-  ): Promise<Tab | undefined>;
+    callback?: (tab?: CmTabsTab) => undefined,
+  ): Promise<CmTabsTab | undefined>;
   /** 复制某个标签页  */
   duplicate(
     tabId: number,
-    callback?: (tab?: Tab) => undefined,
-  ): Promise<Tab | undefined>;
+    callback?: (tab?: CmTabsTab) => undefined,
+  ): Promise<CmTabsTab | undefined>;
   /** 获取某标签内容 */
-  get(tabId: number, callback?: (tab: Tab) => undefined): Promise<Tab>;
+  get(tabId: number, callback?: (tab: CmTabsTab) => undefined): Promise<CmTabsTab>;
   /** 获取指定窗口中所有标签页的详细信息 */
   getAllInWindow(
     windowId?: number,
-    callback?: (tabs: Tab[]) => undefined,
-  ): Promise<Tab[]>;
+    callback?: (tabs: CmTabsTab[]) => undefined,
+  ): Promise<CmTabsTab[]>;
   /** 获取要执行此脚本调用的标签 */
-  getCurrent(callback?: (tab?: Tab) => undefined): Promise<Tab | undefined>;
+  getCurrent(callback?: (tab?: CmTabsTab) => undefined): Promise<CmTabsTab | undefined>;
   /** 获取指定标签页的当前缩放比例 */
   getZoom(
     tabId?: number,
@@ -248,8 +248,8 @@ export type Tabs = {
   /**  获取指定标签页的当前缩放设置 */
   getZoomSettings(
     tabId?: number,
-    callback?: (zoomSettings: ZoomSettings) => undefined,
-  ): Promise<ZoomSettings>;
+    callback?: (zoomSettings: CmZoomSettings) => undefined,
+  ): Promise<CmZoomSettings>;
   /** 返回到上一页 */
   goBack(tabId?: number, callback?: () => undefined): Promise<undefined>;
   /** 前往下一页 */
@@ -258,7 +258,7 @@ export type Tabs = {
   /** 查询当前的标签 */
   query(
     data: { active?: boolean; currentWindow?: boolean; [key: string]: unknown },
-    callback: (tabList: Tab[]) => undefined,
+    callback: (tabList: CmTabsTab[]) => undefined,
   ): undefined;
   sendMessage(
     id: number,

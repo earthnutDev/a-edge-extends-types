@@ -1,5 +1,28 @@
 # edge-extends-types
 
+## 0.0.9 (9 月 19 日 2024 年)
+
+使用 `@types/chrome` 模式发现必须将包放在 `@types` 下才能用，所有又花了一天折腾，最后又改回 `version: 0.0.7` 了，
+不过现在是使用在根目录添加文件 `chrome.d.ts` 文件完成全局的注入（可能还需要在 `tsconfig.json` 文件完成 `include`）
+
+_chrome.d.ts 文件内容_
+
+```ts
+import { Chrome } from 'a-edge-extends-types';
+
+declare global {
+  interface Window {
+    chrome: Chrome;
+  }
+
+  const chrome: Chrome;
+}
+```
+
+## 0.0.8 (9 月 18 日 2024 年)
+
+- 日志丢了
+
 ## 0.0.7 (9 月 16 日 2024 年)
 
 - 遗漏了 `contextMenu` 的类型导出

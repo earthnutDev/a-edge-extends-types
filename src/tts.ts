@@ -6,7 +6,7 @@
  * @CreateDate  周一  09/16/2024
  * @Description `tts` 语音设定
  ****************************************************************************/
-import { languageListT } from './i18n';
+import { CmI18nLanguage } from './i18n';
 
 /** # tts 第二参数配置项
  * - enqueue {@link Boolean} 排队还是插队。`true` 则排队，`false` 则插队
@@ -14,7 +14,7 @@ import { languageListT } from './i18n';
  * - desiredEventTypes  {@link string[]} 侦听的 TTS 事件类型。缺省为所有事件类型
  * - gender   "male"|"female"    语音的性别
  * - rate {@link Number} 语速
- * - lang {@link languageListT} 语言设定
+ * - lang {@link CmI18nLanguage} 语言设定
  * - onEvent(event:(类型见下)=>undefined):undefined 可执行事件
  *      - type 下面是 event.type 的属性。其中，'end'、'interrupted'、'cancelled'、'error' 事件类型为终结
  *          - start        引擎已经开始读出语音
@@ -31,7 +31,7 @@ import { languageListT } from './i18n';
  * - voiceName  合成语音的声部的名称，如果为空，则为任何可用语音
  * - volume     音量
  */
-export type ttsSpeakOptionsT = {
+export type CmTtsSpeakOptions = {
   /** 若是 `true`,则排队；若为 `false` ，则插队  */
   enqueue?: boolean;
   /** 该插件的 id */
@@ -42,8 +42,8 @@ export type ttsSpeakOptionsT = {
   gender: 'male' | 'female';
   /** 语速 {@link Number} */
   rate?: number;
-  /***  语种类型 {@link languageListT} */
-  lang?: languageListT;
+  /***  语种类型 {@link CmI18nLanguage} */
+  lang?: CmI18nLanguage;
   /** 事件，一个事件触发的回调
    *      - type 下面是 event.type 的属性。其中，'end'、'interrupted'、'cancelled'、'error' 事件类型为终结
    *          - start        引擎已经开始读出语音
@@ -92,7 +92,7 @@ export type ttsSpeakOptionsT = {
  *  - gender    "male"|"female"      语音所属性别
  *  - remote          {@link Boolean} 是否加载远程语音
  */
-export type TtsVoice = {
+export type CmTtsVoice = {
   /** 语音名称 */
   voiceName: string;
   /** 所属语种 */
@@ -118,24 +118,24 @@ export type TtsVoice = {
 }[];
 
 /** #  tts 语言配置
- * - `speak(str:string,options?:ttsSpeakOptionsT,callback:()=>undefined):undefined` 开始
+ * - `speak(str:string,options?:CmTtsSpeakOptions,callback:()=>undefined):undefined` 开始
  * - `stop():undefined;` 停止
- * - `getVoices(callback: (voice: TtsVoice) => undefined): undefined`  获取可用语音
+ * - `getVoices(callback: (voice: CmTtsVoice) => undefined): undefined`  获取可用语音
  * - `isSpeaking(callback:(speaking:boolean)=>undefined):Promise<boolean>` 当前是否在播放
  * - `pause():undefined` 暂停语音
  * - `resume():undefined` 从暂停中恢复
  * -  `onVoiceChanged`  当语音发生变化
  */
-export type ttsT = {
+export type CmTts = {
   /**  开始说话
    *
    * @param  str {@link String} 说话的文本
-   * @param options {@link ttsSpeakOptionsT} 配置的参数
+   * @param options {@link CmTtsSpeakOptions} 配置的参数
    * @param callback  可选的回调函数，使用可在回调中访问 error 设定
    */
   speak(
     str: string,
-    options?: ttsSpeakOptionsT,
+    options?: CmTtsSpeakOptions,
     callback?: () => undefined,
   ): undefined;
 
@@ -145,7 +145,7 @@ export type ttsT = {
   /** ## 获取所有可用的语音数组
    *  @param callback  回调函数
    */
-  getVoices(callback: (voice: TtsVoice) => undefined): undefined;
+  getVoices(callback: (voice: CmTtsVoice) => undefined): undefined;
 
   /** ## 当前是否已在播放中
    *  @param callback  回调函数，接受一个布尔值参数，无返回值

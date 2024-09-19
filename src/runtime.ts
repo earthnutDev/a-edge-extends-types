@@ -6,15 +6,15 @@
  * @CreateDate  周一  09/11/2024
  * @Description en
  ****************************************************************************/
-import { Tab } from './tabs';
+import { CmTabsTab } from './tabs';
 
-export type CmROMASender = {
+export type CmRuntimeSender = {
   documentId: string;
   documentLifecycle: string;
   frameId: number;
   id: string;
   origin: string;
-  tab: Tab;
+  tab: CmTabsTab;
   url: string;
 };
 
@@ -24,7 +24,7 @@ export type CmROMASender = {
  * - `reload`       重新加载扩展
  *
  */
-export type Runtime = {
+export type CmRuntime = {
   /** 发送消息，多用以嵌入脚本 */
   sendMessage(
     data: unknown,
@@ -35,7 +35,7 @@ export type Runtime = {
     addListener(
       listenerEvent: (
         request: unknown,
-        sender: CmROMASender,
+        sender: CmRuntimeSender,
         sendResponse: unknown,
       ) => undefined,
     ): undefined;

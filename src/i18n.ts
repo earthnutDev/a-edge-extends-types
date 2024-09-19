@@ -63,7 +63,7 @@
  * -  vi	越南语
  * -  zh_CN	中文
  */
-export type languageListT =
+export type CmI18nLanguage =
   | 'ar'
   | 'am'
   | 'bg'
@@ -124,7 +124,7 @@ export type languageListT =
  *
  *  - isReliable {@link Boolean} CLD 检测到语言的可靠性
  *  - language
- *            - language     {@link languageListT}    语种
+ *            - language     {@link CmI18nLanguage}    语种
  *            - percentage   {@link Number}           检测到语言所占的百分比
  *
  */
@@ -132,19 +132,19 @@ export type detectedLanguageCallbackT = {
   /** CLD 检测到语言的可靠性  */
   isReliable: boolean;
   /** 语言
-   *  -  language {@link languageListT}  语种
+   *  -  language {@link CmI18nLanguage}  语种
    *  -  percentage  {@link Number}      检测到语言所占的百分比
    *
    */
-  language: { language: languageListT; percentage: number };
+  language: { language: CmI18nLanguage; percentage: number };
 }[];
 
 /** # i18n
  *
  * -  `detectLanguage(text:string,callback: (result: detectedLanguageCallbackT) => undefined):undefined` 检测出 3 种语言
- * -  `getAcceptLanguages(): Promise<languageListT[]>` 支持的语言
+ * -  `getAcceptLanguages(): Promise<CmI18nLanguage[]>` 支持的语言
  * - `getMessage(opt:| '@@extension_id'| '@@ui_locale'| '@@bidi_dir'| 'bidi_reversed_dir'| 'bidi_start_edge'| 'bidi_end_edge'| string,): string` 获取文本
- * - `getUILanguage(): languageListT`  获取浏览器默认文本语言
+ * - `getUILanguage(): CmI18nLanguage`  获取浏览器默认文本语言
  *
  *  使用：
  *  - 在 manifest 文件中使用，使用 `__MSG_name__` 的形式即可
@@ -153,7 +153,7 @@ export type detectedLanguageCallbackT = {
  *
  *
  */
-export type i18nT = {
+export type CmI18n = {
   /** 检测出 3 种语言
    *
    * @param text  要翻译的文本
@@ -164,7 +164,7 @@ export type i18nT = {
     callback: (result: detectedLanguageCallbackT) => undefined,
   ): undefined;
   /** 获取支持的语言 */
-  getAcceptLanguages(): Promise<languageListT[]>;
+  getAcceptLanguages(): Promise<CmI18nLanguage[]>;
   /** 获取语言的信息 */
   getMessage(
     opt:
@@ -177,5 +177,5 @@ export type i18nT = {
       | string,
   ): string;
   /** 获取当前浏览器 ui 默认语言设置 */
-  getUILanguage(): languageListT;
+  getUILanguage(): CmI18nLanguage;
 };

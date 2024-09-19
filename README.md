@@ -31,27 +31,6 @@ chrome.runtime.sendMessage({ message: 'nothing', type: 'random' }, response =>
 );
 ```
 
-## Please note the confusion code
-
-If you use the `cleanup` class compression when packing, an error may occur after packing,
-You need to add plugins in the rollup packaging configuration as follows :
-
-```js
-import {...otherPlugins} from 'other-plugin-package';
-import { keepChrome } from 'a-edge-extends-types';
-
-export default {
-  ...otherSetting,
-  plugins:{
-    ...otherPlugins(),
-    keepChrome(),
-  }
-}
-```
-
-- Be sure to put the plugin at the end
-- It may have an impact on the `source map`, but I don't have time to deal with this issue at the moment. In a hurry to find a job
-
 ## illustrate
 
 Only a very small part of the list is given at the moment, as shown below：

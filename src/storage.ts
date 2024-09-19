@@ -7,7 +7,7 @@
  * @Description 数据储存
  ****************************************************************************/
 
-export type OnChangedT = {
+export type CmStorageOnChanged = {
   addListener(
     callback: (
       pref: {
@@ -30,7 +30,7 @@ export type CallbackT = (result: { [key: string]: unknown }) => undefined;
  * - `onChanged` 当储存数据发生变化
  * - `sync`      云端的数据
  */
-export type Storage = {
+export type CmStorage = {
   AccessLevel: {
     TRUSTED_AND_UNTRUSTED_CONTEXTS: 'TRUSTED_AND_UNTRUSTED_CONTEXTS';
     TRUSTED_CONTEXTS: 'TRUSTED_CONTEXTS';
@@ -47,7 +47,7 @@ export type Storage = {
     generateKeySync(
       callback?: (keys: string[]) => undefined,
     ): Promise<string[]>;
-    onChanged: OnChangedT;
+    onChanged: CmStorageOnChanged;
     /** 移除 */
     remove(list: string[], callback?: CallbackT): undefined;
     /** 设定值 */
@@ -64,14 +64,14 @@ export type Storage = {
     generateKeySync(
       callback?: (keys: string[]) => undefined,
     ): Promise<string[]>;
-    onChanged: OnChangedT;
+    onChanged: CmStorageOnChanged;
     /** 移除 */
     remove(list: string[], callback?: CallbackT): undefined;
     /** 设定值 */
     set(data: { [key: string]: unknown }, callback?: CallbackT): undefined;
   };
   /** ## 当触发改变时 */
-  onChanged: OnChangedT;
+  onChanged: CmStorageOnChanged;
   /** ## 异步
    *
    */
@@ -92,7 +92,7 @@ export type Storage = {
     generateKeySync(
       callback?: (keys: string[]) => undefined,
     ): Promise<string[]>;
-    onChanged: OnChangedT;
+    onChanged: CmStorageOnChanged;
     /** 移除 */
     remove(list: string[], callback?: CallbackT): undefined;
     /** 设定值 */
