@@ -1,7 +1,7 @@
-/**  该文件打包前使用  */
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
+    "rootDir": ".",
     "emitDeclarationOnly": true,
     "declaration": true,
     "declarationDir": "dist/"

@@ -1,21 +1,18 @@
 {
   "name": "a-edge-extends-types",
   "type": "module",
-  "version": "0.0.8",
-  "main": "",
-  "module": "",
+  "version": "0.0.10",
   "typings": "dist/index.d.ts",
   "author": "lmssee  <lmssee@outlook.com>  (https://lmssee.com)",
-  "description": "some (not all) edge extends types",
+  "description": "You must be looking for `@types/chrome`. This is the zn-CN version //  some (not all) edge extends types",
   "scripts": {
     "build": "npx ixxx rm dist && npm run b",
-    "b": "tsc -p tsconfig.types.json",
+    "b": "tsc -p ./tsconfig.types.json",
     "eslint": "ixxx cls && eslint src",
     "beautify": "npm run prettier",
     "prettier": "ixxx cls && prettier . --write",
     "versionPatch": "npm version patch --force --no-git-tag-version --allow-same-version=true",
-    "only-up": "cd dist && npm publish && cd ../",
-    "up": "npm run versionPatch && npm run build && npm run only-up"
+    "up": "npm run build &&  npm run versionPatch && npm publish"
   },
   "exports": {
     ".": "./dist/index.d.ts",
@@ -28,7 +25,8 @@
     "./tts": "./dist/src/tts.d.ts"
   },
   "files": [
-    "dist/"
+    "dist/",
+    "init.mjs"
   ],
   "keywords": [
     "edge-extends-types",
@@ -42,7 +40,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lmssee/edge-extends-types.git"
+    "url": "git+https://github.com/lmssee/npm-a-edge-extends-types.git"
   },
   "publishConfig": {
     "access": "public",
@@ -52,7 +50,7 @@
     "typescript": "^5.5.3"
   },
   "bin": {
-    "a-edge-extends-types": "./init.mjs"
+    "a-edge-extends-types": "init.mjs"
   },
   "dependencies": {
     "@types/node": "^22.5.5",

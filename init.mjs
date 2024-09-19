@@ -47,4 +47,3 @@ declare global {
   'utf-8',
   function () {},
 );
-// console.log(123);
