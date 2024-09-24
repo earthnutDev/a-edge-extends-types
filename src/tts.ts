@@ -100,22 +100,25 @@ export type CmTtsVoice = {
   /** 所属插件 */
   extensionId: string;
   /** 所属事件 */
-  eventTypes:
-    | 'start'
-    | 'end'
-    | 'word'
-    | 'sentence'
-    | 'marker'
-    | 'interrupted'
-    | 'cancelled'
-    | 'error'
-    | 'pause'
-    | 'resume';
+  eventTypes: CmTtsVoiceEventType;
   /** 语音所属性别 */
   gender?: 'male' | 'female';
   /** 是否加载远程语音 */
   remote: boolean;
 }[];
+
+/** 类型 */
+export type CmTtsVoiceEventType =
+  | 'start'
+  | 'end'
+  | 'word'
+  | 'sentence'
+  | 'marker'
+  | 'interrupted'
+  | 'cancelled'
+  | 'error'
+  | 'pause'
+  | 'resume';
 
 /** #  tts 语言配置
  * - `speak(str:string,options?:CmTtsSpeakOptions,callback:()=>void):void` 开始

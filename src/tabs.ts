@@ -10,6 +10,7 @@ import { CmConTextMenusCreateProperties } from './contextMenus';
 
 import { injectDetails } from './extensionTypes';
 import { CmI18nLanguage } from './i18n';
+import { Port } from './runtime';
 
 /** #  窗口信息
  *
@@ -46,6 +47,8 @@ export type CmTabsTab = {
   audible?: boolean;
   /** 当资源不足时，是否舍弃 */
   autoDiscardable: boolean;
+  /** 是否是舍弃的标签 */
+  discarded: boolean;
   /** 标签的图标 */
   favIconUrl?: string;
   /** 标签所属的群组的 id */
@@ -62,8 +65,6 @@ export type CmTabsTab = {
   index: number;
   /** 上次访问该标签的时间 */
   lastAccessed: number;
-  /** 是否是舍弃的标签 */
-  discarded: boolean;
   /** 标签页静音相关 */
   mutedInfo?: CmMutedInfo;
   /** 打开盖标签页的名称 */
@@ -107,19 +108,19 @@ export type CmTabsQueryProperties = {
   /** 是否为最后一个聚焦的窗口中 */
   lastFocusedWindow?: boolean;
   /** 是否已固定 */
-  pinned: boolean;
+  pinned?: boolean;
   /** ~~是否已选择~~ ，官方建议使用 highlighted */
-  selected: boolean;
+  selected?: boolean;
   /** 网址 */
   url?: string;
   /**  窗口的 id*/
-  windowId: number;
+  windowId?: number;
   /** 标签页的状态 */
   status?: CmTabStatus;
   /** 标题 */
   title?: string;
   /** 是否是舍弃的标签 */
-  discarded: boolean;
+  discarded?: boolean;
   /** 标签页静音相关 */
   mutedInfo?: CmMutedInfo;
 };
@@ -152,7 +153,7 @@ export type CmZoomSettings = {
   /** 缩放的级别，在调用 `tab.getZoomSettings` 时返回 */
   defaultZoomFactor?: number;
   /** 定义缩放的变化 */
-  model: CmZoomSettingMode;
+  model?: CmZoomSettingMode;
   /** 缩放的范围 */
   scope?: CmZoomSettingsScope;
 };
@@ -181,7 +182,7 @@ export type CmZoomSettingsScope = 'per-origin' | 'per-tab';
  */
 export type CmMutedInfo = {
   /** 更改静音状态插件的 id */
-  extensionId: string;
+  extensionId?: string;
   /** 已设置为静音 */
   muted: boolean;
   /** 标签页设定为静音的原因 */
@@ -202,19 +203,19 @@ export type CmMutedInfoReason = 'user' | 'capture' | 'extension';
  */
 export type CmTabsCreateProperties = {
   /**  是否活跃 */
-  active: boolean;
+  active?: boolean;
   /** 标签在窗口i的序列 */
-  index: number;
+  index?: number;
   /** 打开盖标签页的名称 */
   openerTabId?: boolean;
   /** 是否已固定 */
-  pinned: boolean;
+  pinned?: boolean;
   /** ~~是否已选择~~ ，官方建议使用 highlighted */
-  selected: boolean;
+  selected?: boolean;
   /** 网址 */
   url?: string;
   /**  窗口的 id*/
-  windowId: number;
+  windowId?: number;
 };
 
 /** # 标签页系统
@@ -240,7 +241,7 @@ export type CmTabs = {
    * @param callback  回调
    */
   captureVisibleTab(
-    windowId: number,
+    windowId?: number,
     options?: { type?: 'jpeg'; quality?: number },
     callback?: (dataUrl: string) => void,
   ): Promise<string>;
@@ -251,8 +252,8 @@ export type CmTabs = {
    */
   connect(
     tableId: number,
-    connectInfo: { documentId?: string; frameId?: string; name?: string },
-  ): Promise<string>;
+    connectInfo?: { documentId?: string; frameId?: string; name?: string },
+  ): Port;
   /** #  创建新的标签页  */
   create(
     createProperties: CmTabsCreateProperties,
@@ -282,6 +283,14 @@ export type CmTabs = {
   ): Promise<CmTabsTab[]>;
   /** # 获取要执行此脚本调用的标签 */
   getCurrent(callback?: (tab?: CmTabsTab) => void): Promise<CmTabsTab | void>;
+  /** # ~~获取在指定窗口中选择的标签页~~
+   *
+   * 请使用 tabs.query
+   */
+  getSelected(
+    windowId?: number,
+    callback?: (tab: CmTabsTab) => void,
+  ): Promise<CmTabsTab>;
   /** # 获取指定标签页的当前缩放比例 */
   getZoom(
     tabId?: number,
@@ -302,21 +311,21 @@ export type CmTabs = {
    */
   group(
     options: {
-      createProperties: {
+      createProperties?: {
         windowId?: number;
       };
       groupId?: number;
       tabIds: number | number[];
     },
     callback?: (groupId: number) => void,
-  ): void;
+  ): Promise<number>;
   /** #  高亮窗口 */
   highlight(
     highlightInfo: {
       tabs: number | number[];
       windowId?: number;
     },
-    callback: (window: Window) => void,
+    callback?: (window: Window) => void,
   ): Promise<Window>;
   /**  ~~insertCSS~~
    *
@@ -327,7 +336,7 @@ export type CmTabs = {
     /**  @ts-ignore:   */
     details: injectDetails,
     callback?: () => void,
-  ): void;
+  ): Promise<void>;
   /** # 将一个或多个标签页移至窗口内的新位置，或移至新窗口
    *  请注意：标签页只能移入和移出常规 (window.type === "normal") 窗口  */
   move(
@@ -338,7 +347,7 @@ export type CmTabs = {
       windowId?: number;
     },
     callback?: (tabs: CmTabsTab | CmTabsTab[]) => void,
-  ): void;
+  ): Promise<CmTabsTab | CmTabsTab[]>;
   /** # 查询当前的标签 */
   query(
     queryInfo: CmTabsQueryProperties,
@@ -349,7 +358,7 @@ export type CmTabs = {
     tabId?: number,
     /** 是否绕过本地储存 */
     reloadProperties?: {
-      bypassCache: boolean;
+      bypassCache?: boolean;
     },
     callback?: () => void,
   ): Promise<void>;
@@ -393,14 +402,14 @@ export type CmTabs = {
     tabId?: number,
     /**  @ts-ignore:   */
     zoomFactor: number,
-    callback: () => void,
+    callback?: () => void,
   ): Promise<void>;
   /**  指定标签页的缩放设置 */
   setZoomSettings(
     tabId?: number,
     /**  @ts-ignore:   */
     zoomSettings: CmZoomSettings,
-    callback: () => void,
+    callback?: () => void,
   ): Promise<void>;
   /** # 将一个或多个标签页从其各自的分组中移除
    *
@@ -431,7 +440,7 @@ export type CmTabs = {
       /** 网址 */
       url?: string;
     },
-    callback: () => void,
+    callback?: (tab?: CmTabsTab) => void,
   ): Promise<CmTabsTab | undefined>;
   /**  # 窗口的活动标签页变化
    *

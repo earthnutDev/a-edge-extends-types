@@ -161,13 +161,15 @@ export type CmI18n = {
    */
   detectLanguage(
     text: string,
-    callback: (result: detectedLanguageCallbackT) => void,
+    callback?: (result: detectedLanguageCallbackT) => void,
   ): void;
   /** 获取支持的语言 */
-  getAcceptLanguages(): Promise<CmI18nLanguage[]>;
+  getAcceptLanguages(
+    callback?: (languages: string[]) => void,
+  ): Promise<CmI18nLanguage[]>;
   /** 获取语言的信息 */
   getMessage(
-    opt:
+    messageName:
       | '@@extension_id'
       | '@@ui_locale'
       | '@@bidi_dir'
@@ -175,6 +177,11 @@ export type CmI18n = {
       | 'bidi_start_edge'
       | 'bidi_end_edge'
       | string,
+    /** 选填可替代的字符，最多九个 */
+    substitutions?: unknown,
+    options?: {
+      escapeLt?: boolean;
+    },
   ): string;
   /** 获取当前浏览器 ui 默认语言设置 */
   getUILanguage(): CmI18nLanguage;

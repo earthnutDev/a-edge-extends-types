@@ -120,7 +120,7 @@ export type CmContextMenusOnclickData = {
  *  */
 export type CmContextMenus = {
   /** 特添加到右键菜单的数量上限 */
-  ACTION_MENU_TOP_LEVEL_LIMIT: number;
+  ACTION_MENU_TOP_LEVEL_LIMIT: 6;
   /** ## 创建
    *
    *  **CmConTextMenusCreateProperties**
