@@ -38,7 +38,7 @@ export type CmContextMenuContext =
  *  - `title` {@link String} 要在作品中显示的文本
  *  - `type` {@link Enum} 'normal' | 'checkbox' | 'radio' | 'separator' 菜单类型
  *  -  `visible` {@link Boolean} 可见性
- *  -  `onclick?(info:CmContextMenusOnclickData, tab:CmTabsTab)=>undefined` 回调
+ *  -  `onclick?(info:CmContextMenusOnclickData, tab:CmTabsTab)=>void` 回调
  */
 export type CmConTextMenusCreateProperties = {
   /** 是否已选择 */
@@ -63,7 +63,7 @@ export type CmConTextMenusCreateProperties = {
   /** 可见 */
   visible?: boolean;
   /** 点击事件 */
-  onclick?(info: CmContextMenusOnclickData, tab: CmTabsTab): undefined;
+  onclick?(info: CmContextMenusOnclickData, tab: CmTabsTab): void;
 };
 
 /** # 点击数据
@@ -111,11 +111,11 @@ export type CmContextMenusOnclickData = {
 /**  # 右键菜单栏设置
  *
  *  - `ACTION_MENU_TOP_LEVEL_LIMIT` {@link Number} 特添加到右键菜单的数量上限
- *  - `create(createProperties: CmConTextMenusCreateProperties,callback: () => undefined,):number|string` 添加
- *  - `remove(menuItemId:string|number,callback:()=>undefined):Promise<undefined>` 移除特定 id 的项
- *  - `removeAll(callback?:()=>undefined):Promise<undefined>` 移除所有项
- *  -  `update(id: string | number,updateProperties: CmConTextMenusCreateProperties,callback?: (info: CmContextMenusOnclickData, tab: CmTabsTab) => undefined,): Promise<undefined>` 更新项
- *  - `onClicked: {addListener(callback: (info: CmContextMenusOnclickData, tab: CmTabsTab) => undefined,): undefined;}` 点击触发事件
+ *  - `create(createProperties: CmConTextMenusCreateProperties,callback: () =>void,):number|string` 添加
+ *  - `remove(menuItemId:string|number,callback:()=>void):Promise<void>` 移除特定 id 的项
+ *  - `removeAll(callback?:()=>void):Promise<void>` 移除所有项
+ *  -  `update(id: string | number,updateProperties: CmConTextMenusCreateProperties,callback?: (info: CmContextMenusOnclickData, tab: CmTabsTab) =>void,): Promise<void>` 更新项
+ *  - `onClicked: {addListener(callback: (info: CmContextMenusOnclickData, tab: CmTabsTab) =>void,):void;}` 点击触发事件
  *
  *  */
 export type CmContextMenus = {
@@ -137,7 +137,7 @@ export type CmContextMenus = {
    *           title?: string; //  要在作品中显示的文本
    *           type?: 'normal' | 'checkbox' | 'radio' | 'separator'; //  菜单的类型
    *           visible?: boolean; //  可见
-   *           onclick(info: CmContextMenusOnclickData, tab: CmTabsTab): undefined;//  点击事件
+   *           onclick(info: CmContextMenusOnclickData, tab: CmTabsTab):void;//  点击事件
    *      };
    * ````
    *
@@ -163,7 +163,7 @@ export type CmContextMenus = {
    */
   create(
     createProperties: CmConTextMenusCreateProperties,
-    callback?: () => undefined,
+    callback?: () => void,
   ): number | string;
   /** ## 移除
    *
@@ -171,24 +171,21 @@ export type CmContextMenus = {
    * @param callback  回调函数
    *
    */
-  remove(
-    menuItemId: string | number,
-    callback?: () => undefined,
-  ): Promise<undefined>;
+  remove(menuItemId: string | number, callback?: () => void): Promise<void>;
   /**  ## 移除所有
    *
    */
-  removeAll(callback?: () => undefined): Promise<undefined>;
+  removeAll(callback?: () => void): Promise<void>;
   /** ## 更新项 */
   update(
     id: string | number,
     updateProperties: CmConTextMenusCreateProperties,
-    callback?: (info: CmContextMenusOnclickData, tab: CmTabsTab) => undefined,
-  ): Promise<undefined>;
+    callback?: (info: CmContextMenusOnclickData, tab: CmTabsTab) => void,
+  ): Promise<void>;
   /** 用户点击菜单键的触发 */
   onClicked: {
     addListener(
-      callback: (info: CmContextMenusOnclickData, tab: CmTabsTab) => undefined,
-    ): undefined;
+      callback: (info: CmContextMenusOnclickData, tab: CmTabsTab) => void,
+    ): void;
   };
 };

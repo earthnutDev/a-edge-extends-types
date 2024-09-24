@@ -1,3 +1,4 @@
+import { CmConTextMenusCreateProperties } from './contextMenus';
 /****************************************************************************
  * @Author lmssee
  * @Email lmssee@outlook.com
@@ -7,6 +8,7 @@
  * @Description 窗口组
  ****************************************************************************/
 
+import { injectDetails } from './extensionTypes';
 import { CmI18nLanguage } from './i18n';
 
 /** #  窗口信息
@@ -44,8 +46,6 @@ export type CmTabsTab = {
   audible?: boolean;
   /** 当资源不足时，是否舍弃 */
   autoDiscardable: boolean;
-  /** 是否是舍弃的标签 */
-  discarded: boolean;
   /** 标签的图标 */
   favIconUrl?: string;
   /** 标签所属的群组的 id */
@@ -62,6 +62,8 @@ export type CmTabsTab = {
   index: number;
   /** 上次访问该标签的时间 */
   lastAccessed: number;
+  /** 是否是舍弃的标签 */
+  discarded: boolean;
   /** 标签页静音相关 */
   mutedInfo?: CmMutedInfo;
   /** 打开盖标签页的名称 */
@@ -84,6 +86,42 @@ export type CmTabsTab = {
   width?: number;
   /**  窗口的 id*/
   windowId: number;
+};
+
+/** 查询标签时的参数 */
+export type CmTabsQueryProperties = {
+  /** 是否活跃 */
+  active?: boolean;
+  /** 标签页是否位于当前窗口中 */
+  currentWindow?: boolean;
+  /** 是否可听 */
+  audible?: boolean;
+  /** 当资源不足时，浏览器是否可以自动舍弃标签页 */
+  autoDiscardable?: boolean;
+  /** 所属的群组 */
+  groupId?: number;
+  /** 索引 */
+  index?: number;
+  /** 是否高亮 */
+  highlight?: boolean;
+  /** 是否为最后一个聚焦的窗口中 */
+  lastFocusedWindow?: boolean;
+  /** 是否已固定 */
+  pinned: boolean;
+  /** ~~是否已选择~~ ，官方建议使用 highlighted */
+  selected: boolean;
+  /** 网址 */
+  url?: string;
+  /**  窗口的 id*/
+  windowId: number;
+  /** 标签页的状态 */
+  status?: CmTabStatus;
+  /** 标题 */
+  title?: string;
+  /** 是否是舍弃的标签 */
+  discarded: boolean;
+  /** 标签页静音相关 */
+  mutedInfo?: CmMutedInfo;
 };
 
 /** ## 窗口的状态
@@ -185,13 +223,17 @@ export type CmTabsCreateProperties = {
  *
  */
 export type CmTabs = {
-  /** 每秒调用 `captureVisibleTa` 的最大次数，其开销较大，不宜多用 */
+  /** # 每秒调用 `captureVisibleTa` 的最大次数
+   *
+   * ***其开销较大，不宜多用*** */
   MAX_CAPTURE_VISIBLE_TAB_CALLS_PER_SECOND: number;
-  /** 表示没有浏览器标签页的 ID */
+  /** # 表示没有浏览器标签页的 ID */
   TAB_ID_NONE: number;
-  /** 表示 tab_strip 中不存在标签页索引的索引  */
+  /** # 表示 tab_strip 中不存在标签页索引的索引  */
   TAB_INDEX_NONE: number;
-  /** 获取窗口的可见区域
+  /** # 获取窗口的可见区域
+   *  *扩展程序必须拥有 <all_urls> 的权限或 <activeTab> 的权限*\
+   *
    *
    * @param windowId  窗口的 id ，默认为当前窗口
    * @param options   { type?: 'jpeg'; quality?: number }  图片信息？
@@ -200,9 +242,9 @@ export type CmTabs = {
   captureVisibleTab(
     windowId: number,
     options?: { type?: 'jpeg'; quality?: number },
-    callback?: (dataUrl: string) => undefined,
+    callback?: (dataUrl: string) => void,
   ): Promise<string>;
-  /** ## 连接到指定标签页中的内容脚本
+  /** # 连接到指定标签页中的内容脚本
    *
    * 在当前扩展程序的指定标签页中运行的每个内容脚本中都会触发
    *
@@ -211,58 +253,357 @@ export type CmTabs = {
     tableId: number,
     connectInfo: { documentId?: string; frameId?: string; name?: string },
   ): Promise<string>;
-  /**   */
+  /** #  创建新的标签页  */
   create(
     createProperties: CmTabsCreateProperties,
-    callback?: (tab?: CmTabsTab) => undefined,
-  ): undefined;
-  /** 检测浏览器的主要语言 */
+    callback?: (tab?: CmTabsTab) => void,
+  ): void;
+  /** # 检测浏览器的主要语言 */
   detectLanguage(
     tabId?: number,
-    callback?: (language: CmI18nLanguage) => undefined,
+    callback?: (language: CmI18nLanguage) => void,
   ): Promise<string>;
-  /** 舍弃某个标签页 */
+  /** # 舍弃某个标签页 */
   discard(
     tabId?: number,
-    callback?: (tab?: CmTabsTab) => undefined,
-  ): Promise<CmTabsTab | undefined>;
-  /** 复制某个标签页  */
+    callback?: (tab?: CmTabsTab) => void,
+  ): Promise<CmTabsTab | void>;
+  /** # 复制某个标签页  */
   duplicate(
     tabId: number,
-    callback?: (tab?: CmTabsTab) => undefined,
-  ): Promise<CmTabsTab | undefined>;
-  /** 获取某标签内容 */
-  get(tabId: number, callback?: (tab: CmTabsTab) => undefined): Promise<CmTabsTab>;
-  /** 获取指定窗口中所有标签页的详细信息 */
+    callback?: (tab?: CmTabsTab) => void,
+  ): Promise<CmTabsTab | void>;
+  /** # 获取某标签详细信息 */
+  get(tabId: number, callback?: (tab: CmTabsTab) => void): Promise<CmTabsTab>;
+  /** # 获取指定窗口中所有标签页的详细信息 */
   getAllInWindow(
     windowId?: number,
-    callback?: (tabs: CmTabsTab[]) => undefined,
+    callback?: (tabs: CmTabsTab[]) => void,
   ): Promise<CmTabsTab[]>;
-  /** 获取要执行此脚本调用的标签 */
-  getCurrent(callback?: (tab?: CmTabsTab) => undefined): Promise<CmTabsTab | undefined>;
-  /** 获取指定标签页的当前缩放比例 */
+  /** # 获取要执行此脚本调用的标签 */
+  getCurrent(callback?: (tab?: CmTabsTab) => void): Promise<CmTabsTab | void>;
+  /** # 获取指定标签页的当前缩放比例 */
   getZoom(
     tabId?: number,
-    callback?: (zoomFactor: number) => undefined,
+    callback?: (zoomFactor: number) => void,
   ): Promise<number>;
-  /**  获取指定标签页的当前缩放设置 */
+  /**  # 获取指定标签页的当前缩放设置 */
   getZoomSettings(
     tabId?: number,
-    callback?: (zoomSettings: CmZoomSettings) => undefined,
+    callback?: (zoomSettings: CmZoomSettings) => void,
   ): Promise<CmZoomSettings>;
-  /** 返回到上一页 */
-  goBack(tabId?: number, callback?: () => undefined): Promise<undefined>;
+  /** # 返回到上一页 */
+  goBack(tabId?: number, callback?: () => void): Promise<void>;
   /** 前往下一页 */
-  goForward(tabId?: number, callback?: () => undefined): Promise<undefined>;
-  /**  TODO 从 group 以后没有 */
-  /** 查询当前的标签 */
+  goForward(tabId?: number, callback?: () => void): Promise<void>;
+  /** # 将一个或多个标签页添加到指定分组
+   *
+   *  *如果未指定分组，则会将指定标签页添加到新创建的分组*
+   */
+  group(
+    options: {
+      createProperties: {
+        windowId?: number;
+      };
+      groupId?: number;
+      tabIds: number | number[];
+    },
+    callback?: (groupId: number) => void,
+  ): void;
+  /** #  高亮窗口 */
+  highlight(
+    highlightInfo: {
+      tabs: number | number[];
+      windowId?: number;
+    },
+    callback: (window: Window) => void,
+  ): Promise<Window>;
+  /**  ~~insertCSS~~
+   *
+   *  *在 Manifest V3  中，替换为 scripting.insertCSS*
+   */
+  insertCSS(
+    tabId?: number,
+    /**  @ts-ignore:   */
+    details: injectDetails,
+    callback?: () => void,
+  ): void;
+  /** # 将一个或多个标签页移至窗口内的新位置，或移至新窗口
+   *  请注意：标签页只能移入和移出常规 (window.type === "normal") 窗口  */
+  move(
+    tabIds: number | number[],
+    /** 移动参数 */
+    moveProperties: {
+      index: number;
+      windowId?: number;
+    },
+    callback?: (tabs: CmTabsTab | CmTabsTab[]) => void,
+  ): void;
+  /** # 查询当前的标签 */
   query(
-    data: { active?: boolean; currentWindow?: boolean; [key: string]: unknown },
-    callback: (tabList: CmTabsTab[]) => undefined,
-  ): undefined;
+    queryInfo: CmTabsQueryProperties,
+    callback?: (tabList: CmTabsTab[]) => void,
+  ): void;
+  /**  # 重新加载标签页 */
+  reload(
+    tabId?: number,
+    /** 是否绕过本地储存 */
+    reloadProperties?: {
+      bypassCache: boolean;
+    },
+    callback?: () => void,
+  ): Promise<void>;
+  /** 移除标签 */
+  remove(tabIds: number | number[], callback?: () => void): Promise<void>;
+  /** ~~移除 css~~
+   *
+   *  *在 Manifest V3  中，替换为 scripting.removeCSS*
+   *
+   */
+  removeCSS(
+    tabId?: number,
+    /**  @ts-ignore:   */
+    details: DeleteInjectionDetails,
+    callback?: () => void,
+  ): Promise<void>;
+  /**  # 向特定标签页发送消息 */
   sendMessage(
-    id: number,
+    tabId: number,
+    /** 消息 此消息应为 JSON 类型 */
     message: unknown,
-    callback?: (response: { [key: string]: unknown }) => undefined,
-  ): undefined;
+    /** 消息参数 */
+    options?: {
+      documentId?: string;
+      frameId?: number;
+    },
+    callback?: (response: { [key: string]: unknown }) => void,
+  ): Promise<void>;
+  /** ~~向指定标签页中的内容脚本发送单个请求，其中包含在发回响应时运行的可选回调函数~~
+   *
+   *  *在 Manifest V3  中，替换为 runtime.sendMessage*
+   *
+   */
+  sendRequest(
+    tabId: number,
+    request: unknown,
+    callback?: (response: unknown) => void,
+  ): Promise<void>;
+  /**  缩放指定的标签页 */
+  setZoom(
+    tabId?: number,
+    /**  @ts-ignore:   */
+    zoomFactor: number,
+    callback: () => void,
+  ): Promise<void>;
+  /**  指定标签页的缩放设置 */
+  setZoomSettings(
+    tabId?: number,
+    /**  @ts-ignore:   */
+    zoomSettings: CmZoomSettings,
+    callback: () => void,
+  ): Promise<void>;
+  /** # 将一个或多个标签页从其各自的分组中移除
+   *
+   * 如果有任何群组为空，系统会将其删除。 */
+  ungroup(tabIds: number | number[], callback?: () => void): Promise<void>;
+  /** # 修改标签页的属性
+   *
+   * *系统不会修改未在 updateProperties 中指定的属性*
+   *  */
+  update(
+    tabId?: number,
+    /**  @ts-ignore:   */
+    updateProperties: {
+      /**  是否活跃 */
+      active?: boolean;
+      /** 当资源不足时，是否舍弃 */
+      autoDiscardable?: boolean;
+      /** 标签是否高亮显示 */
+      highlighted?: boolean;
+      /** 是否已被静音 */
+      muted?: boolean;
+      /** 是否已固定 */
+      pinned?: boolean;
+      /** 打开盖标签页的名称 */
+      openerTabId?: boolean;
+      /** ~~是否已选择~~ ，官方建议使用 highlighted */
+      selected?: boolean;
+      /** 网址 */
+      url?: string;
+    },
+    callback: () => void,
+  ): Promise<CmTabsTab | undefined>;
+  /**  # 窗口的活动标签页变化
+   *
+   * *在触发此事件时可能无法设置该标签页的网址，但您可以监听 onUpdated 事件，以便在设置了网址时收到通知*
+   *
+   *
+   */
+  onActivated: {
+    addListener(
+      callback: (activeInfo: {
+        /** 已处于活动标签页的标签页 id */
+        tabId: number;
+        /** 更改活动标签页窗口的 id */
+        windowId: number;
+      }) => void,
+    ): void;
+  };
+  /** ~~ 在窗口中选定的标签页发生变化时触发 ~~
+   *
+   * *请使用 `tabs.onActivated`*
+   */
+  onActiveChanged: {
+    addListener(
+      callback: (activeInfo: {
+        /** 已处于活动标签页的标签页 id */
+        tabId: number;
+        /** 更改活动标签页窗口的 id */
+        windowId: number;
+      }) => void,
+    ): void;
+  };
+  /** # 在标签页附加到窗口时触发
+   *
+   * 例如:因为它在窗口之间移动
+   * */
+  onAttached: {
+    addListener(
+      callback: (
+        tabId: number,
+        activeInfo: {
+          newPosition: number;
+          newWindowId: number;
+        },
+      ) => void,
+    ): void;
+  };
+  /** # 创建标签页时触发
+   * 请注意，在触发此事件时可能无法设置标签页的网址和标签页组成员资格，但您可以监听 onUpdated 事件，以便在设置了网址或标签页添加到标签页组时收到通知 */
+  onCreated: {
+    addListener(callback: (tab: CmTabsTab) => void): void;
+  };
+  /** # 在标签页与窗口分离时触发
+   * 例如:因为它在窗口之间移动 */
+  onDetached: {
+    addListener(
+      callback: (
+        tabId: number,
+        detachInfo: { oldPosition: number; oldWindowId: number },
+      ) => void,
+    ): void;
+  };
+  /** #  ~~在窗口中突出显示或选中的标签页发生变化时触发~~
+   *
+   *  请使用 `tabs.onHighlighted`
+   */
+  onHighlightChanged: {
+    addListener(
+      callback: (highlightInfo: {
+        /** 已处于活动标签页的标签页 id */
+        tabId: number;
+        /** 更改活动标签页窗口的 id */
+        windowId: number;
+      }) => void,
+    ): void;
+  };
+  /** #  在窗口中突出显示或选中的标签页发生变化时触发
+   *
+   */
+  onHighlighted: {
+    addListener(
+      callback: (highlightInfo: {
+        /** 已处于活动标签页的标签页 id */
+        tabId: number;
+        /** 更改活动标签页窗口的 id */
+        windowId: number;
+      }) => void,
+    ): void;
+  };
+  /** # 在标签页内移动标签页时触发
+   * - 系统只会触发一个移动事件，表示用户直接移动的标签页
+   * - 对于为响应手动移动标签页而必须移动的其他标签页，系统不会触发移动事件
+   * - 在窗口之间移动标签页时，不会触发此事件
+   */
+  onMoved: {
+    addListener(
+      callback: (
+        tabId: number,
+        moveInfo: {
+          fromIndex: number;
+          toIndex: number;
+          /** 更改活动标签页窗口的 id */
+          windowId: number;
+        },
+      ) => void,
+    ): void;
+  };
+  /** # 关闭标签页时触发 */
+  onRemoved: {
+    addListener(
+      callback: (
+        tabId: number,
+        removeInfo: {
+          /** 当标签页因其父窗口关闭而关闭时为 true */
+          isWindowClosing: boolean;
+          /** 更改活动标签页窗口的 id */
+          windowId: number;
+        },
+      ) => void,
+    ): void;
+  };
+  /** # 在标签页因预渲染或即时预览而被替换为另一个标签页时触发   */
+  onReplaced: {
+    addListener(
+      callback: (addedTabId: number, removedTabId: number) => void,
+    ): void;
+  };
+  /** # ~~在窗口中选定的标签页发生变化时触发~~
+   *
+   * 请使用 `tabs.onActivated`
+   */
+  onSelectionChanged: {
+    addListener(
+      callback: (
+        tabId: number,
+        selectInfo: {
+          windowId: number;
+        },
+      ) => void,
+    ): void;
+  };
+  /** # 在更新标签页时触发 */
+  onUpdated: {
+    addListener(
+      callback: (
+        tabId: number,
+        changeInfo: {
+          /** 标签页是否已静音 */
+          audible?: boolean;
+          /** 自动舍弃 */
+          autoDiscardable?: boolean;
+          /** 是否是舍弃的标签 */
+          discarded?: boolean;
+          /** 标签的图标 */
+          favIconUrl?: string;
+          /** 标签所属的群组的 id */
+          groupId: number;
+          /** 是否已固定 */
+          pinned: boolean;
+          /** 标签页静音相关 */
+          mutedInfo?: CmMutedInfo;
+          /** 标签页的状态 */
+          status?: CmTabStatus;
+          /** 标题 */
+          title?: string;
+          /** 网址 */
+          url?: string;
+        },
+        tab: CmTabsTab,
+      ) => void,
+    ): void;
+  };
+  onZoomChange: {
+    addListener(callback: () => void): void;
+  };
 };

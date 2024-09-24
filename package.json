@@ -1,7 +1,7 @@
 {
   "name": "a-edge-extends-types",
   "type": "module",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "typings": "dist/index.d.ts",
   "author": "lmssee  <lmssee@outlook.com>  (https://lmssee.com)",
   "description": "You must be looking for `@types/chrome`. This is the zn-CN version //  some (not all) edge extends types",
@@ -20,6 +20,7 @@
     "./i18n": "./dist/src/i18n.d.ts",
     "./action": "./dist/src/action.d.ts",
     "./runtime": "./dist/src/runtime.d.ts",
+    "./extensionTypes": "./dist/src/extensionTypes.d.ts",
     "./storage": "./dist/src/storage.d.ts",
     "./contextMenus": "./dist/src/contextMenus.d.ts",
     "./tts": "./dist/src/tts.d.ts"

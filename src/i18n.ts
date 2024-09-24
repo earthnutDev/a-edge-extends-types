@@ -141,7 +141,7 @@ export type detectedLanguageCallbackT = {
 
 /** # i18n
  *
- * -  `detectLanguage(text:string,callback: (result: detectedLanguageCallbackT) => undefined):undefined` 检测出 3 种语言
+ * -  `detectLanguage(text:string,callback: (result: detectedLanguageCallbackT) =>void):void` 检测出 3 种语言
  * -  `getAcceptLanguages(): Promise<CmI18nLanguage[]>` 支持的语言
  * - `getMessage(opt:| '@@extension_id'| '@@ui_locale'| '@@bidi_dir'| 'bidi_reversed_dir'| 'bidi_start_edge'| 'bidi_end_edge'| string,): string` 获取文本
  * - `getUILanguage(): CmI18nLanguage`  获取浏览器默认文本语言
@@ -161,8 +161,8 @@ export type CmI18n = {
    */
   detectLanguage(
     text: string,
-    callback: (result: detectedLanguageCallbackT) => undefined,
-  ): undefined;
+    callback: (result: detectedLanguageCallbackT) => void,
+  ): void;
   /** 获取支持的语言 */
   getAcceptLanguages(): Promise<CmI18nLanguage[]>;
   /** 获取语言的信息 */

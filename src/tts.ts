@@ -15,7 +15,7 @@ import { CmI18nLanguage } from './i18n';
  * - gender   "male"|"female"    语音的性别
  * - rate {@link Number} 语速
  * - lang {@link CmI18nLanguage} 语言设定
- * - onEvent(event:(类型见下)=>undefined):undefined 可执行事件
+ * - onEvent(event:(类型见下)=>void):void 可执行事件
  *      - type 下面是 event.type 的属性。其中，'end'、'interrupted'、'cancelled'、'error' 事件类型为终结
  *          - start        引擎已经开始读出语音
  *          - word         以达到单词的边界
@@ -71,7 +71,7 @@ export type CmTtsSpeakOptions = {
     charIndex: number;
     /** 错误信息 */
     errorMessage: string;
-  }) => undefined;
+  }) => void;
   /** 音调，介于 0～2 之间 */
   pitch: number;
   /** 语音必须支持的事件类型 */
@@ -118,12 +118,12 @@ export type CmTtsVoice = {
 }[];
 
 /** #  tts 语言配置
- * - `speak(str:string,options?:CmTtsSpeakOptions,callback:()=>undefined):undefined` 开始
- * - `stop():undefined;` 停止
- * - `getVoices(callback: (voice: CmTtsVoice) => undefined): undefined`  获取可用语音
- * - `isSpeaking(callback:(speaking:boolean)=>undefined):Promise<boolean>` 当前是否在播放
- * - `pause():undefined` 暂停语音
- * - `resume():undefined` 从暂停中恢复
+ * - `speak(str:string,options?:CmTtsSpeakOptions,callback:()=>void):void` 开始
+ * - `stop():void;` 停止
+ * - `getVoices(callback: (voice: CmTtsVoice) =>void):void`  获取可用语音
+ * - `isSpeaking(callback:(speaking:boolean)=>void):Promise<boolean>` 当前是否在播放
+ * - `pause():void` 暂停语音
+ * - `resume():void` 从暂停中恢复
  * -  `onVoiceChanged`  当语音发生变化
  */
 export type CmTts = {
@@ -133,35 +133,31 @@ export type CmTts = {
    * @param options {@link CmTtsSpeakOptions} 配置的参数
    * @param callback  可选的回调函数，使用可在回调中访问 error 设定
    */
-  speak(
-    str: string,
-    options?: CmTtsSpeakOptions,
-    callback?: () => undefined,
-  ): undefined;
+  speak(str: string, options?: CmTtsSpeakOptions, callback?: () => void): void;
 
   /** ## 停止讲话 */
-  stop(): undefined;
+  stop(): void;
 
   /** ## 获取所有可用的语音数组
    *  @param callback  回调函数
    */
-  getVoices(callback: (voice: CmTtsVoice) => undefined): undefined;
+  getVoices(callback: (voice: CmTtsVoice) => void): void;
 
   /** ## 当前是否已在播放中
    *  @param callback  回调函数，接受一个布尔值参数，无返回值
    *  @returns Promise<boolean>
    */
-  isSpeaking(callback: (speaking: boolean) => undefined): Promise<boolean>;
+  isSpeaking(callback: (speaking: boolean) => void): Promise<boolean>;
   /** ## 暂停
    *
    */
-  pause(): undefined;
+  pause(): void;
 
   /** ## 从暂停中恢复 */
-  resume(): undefined;
+  resume(): void;
 
   /** ## 当语音发生变化 */
   onVoicedChanged: {
-    addListener(callback: () => undefined): undefined;
+    addListener(callback: () => void): void;
   };
 };

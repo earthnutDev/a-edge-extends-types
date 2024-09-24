@@ -10,8 +10,9 @@
     "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
     "lib": [
-      "ESNext",
-      "DOM"
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
     ],
     "sourceMap": false,
   }

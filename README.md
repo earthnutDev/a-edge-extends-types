@@ -44,19 +44,16 @@ or use `npx immm` create this file，and include `tsconfig.json`
 
 Only a very small part of the list is given at the moment, as shown below：
 
-- action (none)
-- contextMenus
-- i18n (all)
-- tts (all)
-- runtime
-  - onload
-  - sendMessage
-  - onMessage
-    - addListener
-- storage (all)
-- tabs
-  - tab (all)
-  - query
-  - sendMessage
+- `action` (none)
+- `contextMenus`
+- `i18n` (all)
+- `tts` (all)
+- `runtime`
+  - `onload`
+  - `sendMessage`
+  - `onMessage`
+    - `addListener`
+- `storage` (all)
+- `tabs` (all)
 
 If you have any questions, you can directly [submit feedback](https://github.com/lmssee/npm-a-edge-extends-types/issues/new)

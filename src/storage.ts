@@ -17,10 +17,10 @@ export type CmStorageOnChanged = {
         };
       },
       areaName: 'local' | 'sync',
-    ) => undefined,
-  ): undefined;
+    ) => void,
+  ): void;
 };
-export type CallbackT = (result: { [key: string]: unknown }) => undefined;
+export type CallbackT = (result: { [key: string]: unknown }) => void;
 
 /** # storage
  *
@@ -38,37 +38,33 @@ export type CmStorage = {
   local: {
     QUOTA_BYTES: number;
     /** ## 清理 */
-    clear(): undefined;
+    clear(): void;
     /** 获取数据 */
-    get(keys: string[], callback?: CallbackT): undefined;
+    get(keys: string[], callback?: CallbackT): void;
     /** 获取一个或多个占用项的空间量 */
-    getBytesInUse(): undefined;
+    getBytesInUse(): void;
     /** 获取所有的密钥 */
-    generateKeySync(
-      callback?: (keys: string[]) => undefined,
-    ): Promise<string[]>;
+    generateKeySync(callback?: (keys: string[]) => void): Promise<string[]>;
     onChanged: CmStorageOnChanged;
     /** 移除 */
-    remove(list: string[], callback?: CallbackT): undefined;
+    remove(list: string[], callback?: CallbackT): void;
     /** 设定值 */
-    set(data: { [key: string]: unknown }, callback?: CallbackT): undefined;
+    set(data: { [key: string]: unknown }, callback?: CallbackT): void;
   };
   managed: {
     /** ## 清理 */
-    clear(): undefined;
+    clear(): void;
     /** 获取数据 */
-    get(keys: string[], callback?: CallbackT): undefined;
+    get(keys: string[], callback?: CallbackT): void;
     /** 获取一个或多个占用项的空间量 */
-    getBytesInUse(): undefined;
+    getBytesInUse(): void;
     /** 获取所有的密钥 */
-    generateKeySync(
-      callback?: (keys: string[]) => undefined,
-    ): Promise<string[]>;
+    generateKeySync(callback?: (keys: string[]) => void): Promise<string[]>;
     onChanged: CmStorageOnChanged;
     /** 移除 */
-    remove(list: string[], callback?: CallbackT): undefined;
+    remove(list: string[], callback?: CallbackT): void;
     /** 设定值 */
-    set(data: { [key: string]: unknown }, callback?: CallbackT): undefined;
+    set(data: { [key: string]: unknown }, callback?: CallbackT): void;
   };
   /** ## 当触发改变时 */
   onChanged: CmStorageOnChanged;
@@ -83,19 +79,17 @@ export type CmStorage = {
     QUOTA_BYTES_PER_ITEM: number;
     QUOTA_BYTES: number;
     /** ## 清理 */
-    clear(): undefined;
+    clear(): void;
     /** 获取数据 */
-    get(keys: string[], callback?: CallbackT): undefined;
+    get(keys: string[], callback?: CallbackT): void;
     /** 获取一个或多个占用项的空间量 */
-    getBytesInUse(): undefined;
+    getBytesInUse(): void;
     /** 获取所有的密钥 */
-    generateKeySync(
-      callback?: (keys: string[]) => undefined,
-    ): Promise<string[]>;
+    generateKeySync(callback?: (keys: string[]) => void): Promise<string[]>;
     onChanged: CmStorageOnChanged;
     /** 移除 */
-    remove(list: string[], callback?: CallbackT): undefined;
+    remove(list: string[], callback?: CallbackT): void;
     /** 设定值 */
-    set(data: { [key: string]: unknown }, callback?: CallbackT): undefined;
+    set(data: { [key: string]: unknown }, callback?: CallbackT): void;
   };
 };
