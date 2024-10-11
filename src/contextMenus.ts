@@ -43,7 +43,12 @@ export type CmContextMenuContext =
 export type CmConTextMenusCreateProperties = {
   /** 是否已选择 */
   checked?: boolean;
-  /** 上下文 */
+  /** 上下文
+   * ```ts
+   * type CmContextMenuContext = "all" | "page" | "frame" | "selection" | "link" | "editable" | "image" | "audio" | "video" | "launcher" | "action" | "browser_action" | "page_action"
+   * ```
+   *
+   */
   contexts?: CmContextMenuContext[];
   /** 将内容限制为仅应用于网址与某一指定格式相符的文档或框架 */
   documentUrlPatterns?: string[];
@@ -162,6 +167,36 @@ export type CmContextMenus = {
    *
    */
   create(
+    /**
+     * ## 添加的属性设定
+     *  ```ts
+     * type CmConTextMenusCreateProperties = {
+     *     checked?: boolean;
+     *     contexts?: CmContextMenuContext[];
+     *     documentUrlPatterns?: string[];
+     *     enabled?: boolean;
+     *     id?: string;
+     *     parentId?: string;
+     *     targetUrlPatterns?: string[];
+     *     title?: string;
+     *     type?: "normal" | "checkbox" | "radio" | "separator";
+     *     visible?: boolean;
+     *     onclick?(info: CmContextMenusOnclickData, tab: CmTabsTab): void;
+     * }
+     * ```
+     * - `checked` {Boolean} 是否已选择
+     * - `contexts` {CmContextMenuContext[]} 上下文。数组
+     * - `documentUrlPatterns` {String[]} 将内容限制为仅应用于网址与某一指定格式相符的文档或框架
+     * - `enabled` {Boolean} 此上下文菜单项处于启用状态还是停用状态。默认为 true
+     * - `id` {String} 要分配给此内容的唯一 ID。活动页面必须使用。不能与此扩展程序的另一个 ID 相同
+     * - `parentId` {String} 父菜单项的 ID；这会使该项成为先前添加的项的子项
+     * - `targetUrlPatterns` {String[]} 与 documentUrlPatterns 类似，根据 `img``、audio` 和 `video` 标记的 `src` 属性以及 a 标 *-记的 `href` 属性进行过滤
+     * - `title` String 要在作品中显示的文本
+     * - `type` {Enum} 'normal' | 'checkbox' | 'radio' | 'separator' 菜单类型
+     * - `visible` {Boolean} 可见性
+     * - `onclick` ?(info:CmContextMenusOnclickData, tab:CmTabsTab)=>void 回调
+     *
+     */
     createProperties: CmConTextMenusCreateProperties,
     callback?: () => void,
   ): number | string;
@@ -179,6 +214,36 @@ export type CmContextMenus = {
   /** ## 更新项 */
   update(
     id: string | number,
+    /**
+     * ## 添加的属性设定
+     *  ```ts
+     * type CmConTextMenusCreateProperties = {
+     *     checked?: boolean;
+     *     contexts?: CmContextMenuContext[];
+     *     documentUrlPatterns?: string[];
+     *     enabled?: boolean;
+     *     id?: string;
+     *     parentId?: string;
+     *     targetUrlPatterns?: string[];
+     *     title?: string;
+     *     type?: "normal" | "checkbox" | "radio" | "separator";
+     *     visible?: boolean;
+     *     onclick?(info: CmContextMenusOnclickData, tab: CmTabsTab): void;
+     * }
+     * ```
+     * - `checked` {Boolean} 是否已选择
+     * - `contexts` {CmContextMenuContext[]} 上下文。数组
+     * - `documentUrlPatterns` {String[]} 将内容限制为仅应用于网址与某一指定格式相符的文档或框架
+     * - `enabled` {Boolean} 此上下文菜单项处于启用状态还是停用状态。默认为 true
+     * - `id` {String} 要分配给此内容的唯一 ID。活动页面必须使用。不能与此扩展程序的另一个 ID 相同
+     * - `parentId` {String} 父菜单项的 ID；这会使该项成为先前添加的项的子项
+     * - `targetUrlPatterns` {String[]} 与 documentUrlPatterns 类似，根据 `img``、audio` 和 `video` 标记的 `src` 属性以及 a 标 *-记的 `href` 属性进行过滤
+     * - `title` String 要在作品中显示的文本
+     * - `type` {Enum} 'normal' | 'checkbox' | 'radio' | 'separator' 菜单类型
+     * - `visible` {Boolean} 可见性
+     * - `onclick` ?(info:CmContextMenusOnclickData, tab:CmTabsTab)=>void 回调
+     *
+     */
     updateProperties: CmConTextMenusCreateProperties,
     callback?: (info: CmContextMenusOnclickData, tab: CmTabsTab) => void,
   ): Promise<void>;

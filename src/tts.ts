@@ -132,6 +132,50 @@ export type CmTtsVoiceEventType =
 export type CmTts = {
   /**  开始说话
    *
+   * ```ts
+   * type CmTtsSpeakOptions = {
+   *     enqueue?: boolean;
+   *     extensionId: string;
+   *     desiredEventTypes?: string[];
+   *     gender: "male" | "female";
+   *     rate?: number;
+   *     lang?: CmI18nLanguage;
+   *     onEvent?: (event: {
+   *         type: "start" | "word" | "sentence" | "marker" | "end" | "interrupted" | "cancelled" |  "error";
+   *         charIndex: number;
+   *         errorMessage: string;
+   *     }) => void;
+   *     pitch: number;
+   *     requiredEventTypes: string[];
+   *     voiceName: string;
+   *     volume: number;
+   * }
+   *
+   * ```
+   *
+   * - enqueue Boolean 排队还是插队。true 则排队，false 则插队
+   * - extensionId String 该插件的 id
+   * - desiredEventTypes string [] 侦听的 TTS 事件类型。缺省为所有事件类型
+   * - gender "male"|"female" 语音的性别
+   * - rate Number 语速
+   * - lang CmI18nLanguage 语言设定
+   * - onEvent(event:(类型见下)=>void):void 可执行事件
+   *    - type 下面是 event.type 的属性。其中，'end'、'interrupted'、'cancelled'、'error' 事件类型为终结
+   *          - start 引擎已经开始读出语音
+   *          - word 以达到单词的边界
+   *          - sentence 以达到句子的边界
+   *          - end 已经完成
+   *          - interrupted 语音被另一个语音中断
+   *          - cancelled 语音已加入列队
+   *          - error 语音发声错误
+   *    - charIndex 发生错误的字符位置
+   *    - errorMessage 错误消息
+   * - pitch 音调，介于 0～2 之间的浮点数
+   * - requiredEventTypes 语音必须支持的事件类型。字符串数组
+   * - voiceName 合成语音的声部的名称，如果为空，则为任何可用语音
+   * - volume 音量
+   *
+   *
    * @param  str {@link String} 说话的文本
    * @param options {@link CmTtsSpeakOptions} 配置的参数
    * @param callback  可选的回调函数，使用可在回调中访问 error 设定
@@ -142,6 +186,26 @@ export type CmTts = {
   stop(): void;
 
   /** ## 获取所有可用的语音数组
+   *
+   * ```ts
+   * type CmTtsVoice = {
+   *      voiceName: string;
+   *      lang: string;
+   *      extensionId: string;
+   *      eventTypes: CmTtsVoiceEventType;
+   *      gender?: "male" | "female";
+   *      remote: boolean;
+   *  }[]
+   * ```
+   *  - voiceName String 语音名称
+   *  - lang String 所属语种
+   *  - extensionId String 所属插件
+   *  - eventTypes 事件类型
+   *  - charIndex 字符位置
+   *  - length 长度
+   *  - gender "male"|"female" 语音所属性别
+   *  - remote Boolean 是否加载远程语音
+   *
    *  @param callback  回调函数
    */
   getVoices(callback: (voice: CmTtsVoice) => void): void;

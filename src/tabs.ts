@@ -14,8 +14,6 @@ import { Port } from './runtime';
 
 /** #  窗口信息
  *
- * *太多了，明天中秋，不想写了，好想有个钱多的班上上*
- *
  * -  active: boolean   是否活跃
  * -  audible?: boolean  在过去的几秒钟是否发声
  * -  autoDiscardable: boolean  当资源不足时，是否舍弃
@@ -65,7 +63,23 @@ export type CmTabsTab = {
   index: number;
   /** 上次访问该标签的时间 */
   lastAccessed: number;
-  /** 标签页静音相关 */
+  /** 标签页静音相关
+   *
+   * ```ts
+   * type CmMutedInfo = {
+   *     extensionId?: string;
+   *     muted: boolean;
+   *     reason?: CmMutedInfoReason;
+   * }
+   *
+   *
+   * type CmMutedInfoReason = 'user' | 'capture' | 'extension';
+   * ```
+   * - capture 截图
+   * - extension 扩展
+   * - user 用户主动
+   *
+   */
   mutedInfo?: CmMutedInfo;
   /** 打开盖标签页的名称 */
   openerTabId?: boolean;
@@ -77,7 +91,15 @@ export type CmTabsTab = {
   selected: boolean;
   /** 绘画的 id */
   sessionId?: string;
-  /** 标签页的状态 */
+  /** 标签页的状态
+   *
+   * ```ts
+   * type CmTabStatus = "unloaded" | "loading" | "complete"
+   * ```
+   * - unloaded 已卸载
+   * - loading 加载
+   * - complete 完成
+   */
   status?: CmTabStatus;
   /** 标题 */
   title?: string;
@@ -115,13 +137,34 @@ export type CmTabsQueryProperties = {
   url?: string;
   /**  窗口的 id*/
   windowId?: number;
-  /** 标签页的状态 */
+  /** 标签页的状态
+   *
+   * ```ts
+   * type CmTabStatus = "unloaded" | "loading" | "complete"
+   * ```
+   * - unloaded 已卸载
+   * - loading 加载
+   * - complete 完成
+   */
   status?: CmTabStatus;
   /** 标题 */
   title?: string;
   /** 是否是舍弃的标签 */
   discarded?: boolean;
-  /** 标签页静音相关 */
+  /** 标签页静音相关
+   *
+   * ```ts
+   * type CmMutedInfo = {
+   *     extensionId?: string;
+   *     muted: boolean;
+   *     reason?: CmMutedInfoReason;
+   * }
+   *
+   *
+   * type CmMutedInfoReason = 'user' | 'capture' | 'extension';
+   * ```
+   *
+   */
   mutedInfo?: CmMutedInfo;
 };
 
@@ -152,9 +195,27 @@ export type CmWindowType = 'normal' | 'popup' | 'panel' | 'app' | 'devtools';
 export type CmZoomSettings = {
   /** 缩放的级别，在调用 `tab.getZoomSettings` 时返回 */
   defaultZoomFactor?: number;
-  /** 定义缩放的变化 */
+  /** 定义缩放的变化
+   *
+   * ```ts
+   * type CmZoomSettingMode = "automatic" | "manual" | "disabled"
+   * ```
+   * -  automatic 浏览器执行处理
+   * - manual 覆盖自动处理缩放更的的功能
+   * - disabled 停用缩放
+   */
   model?: CmZoomSettingMode;
-  /** 缩放的范围 */
+  /** 缩放的范围
+   *
+   * ```ts
+   * type CmZoomSettingsScope = "per-origin" | "per-tab"
+   * ```
+   * 缩放更改的
+   * 在 automatic 模式下，默认为 pre-origin ，否则为 per-tab
+   *
+   * - per-origin 缩放更改保留在缩放页面的原点中
+   * - per-tab 缩放行为的更改仅在此标签页生效
+   */
   scope?: CmZoomSettingsScope;
 };
 
@@ -185,11 +246,25 @@ export type CmMutedInfo = {
   extensionId?: string;
   /** 已设置为静音 */
   muted: boolean;
-  /** 标签页设定为静音的原因 */
+  /** 标签页设定为静音的原因
+   *
+   * ```ts
+   * type CmMutedInfoReason = "user" | "capture" | "extension"
+   * ```
+   * - capture 截图
+   * - extension 扩展
+   * - user 用户主动
+   *
+   */
   reason?: CmMutedInfoReason;
 };
 
-/** 标签页设定为静音的原因 */
+/** 标签页设定为静音的原因
+ *
+ * - capture 截图
+ * - extension 扩展
+ * - user 用户主动
+ */
 export type CmMutedInfoReason = 'user' | 'capture' | 'extension';
 
 /** ## 创建信的标签页
@@ -210,7 +285,7 @@ export type CmTabsCreateProperties = {
   openerTabId?: boolean;
   /** 是否已固定 */
   pinned?: boolean;
-  /** ~~是否已选择~~ ，官方建议使用 highlighted */
+  /** ~~是否已选择 ，官方建议使用 ***highlighted***~~ */
   selected?: boolean;
   /** 网址 */
   url?: string;
@@ -233,12 +308,12 @@ export type CmTabs = {
   /** # 表示 tab_strip 中不存在标签页索引的索引  */
   TAB_INDEX_NONE: number;
   /** # 获取窗口的可见区域
-   *  *扩展程序必须拥有 <all_urls> 的权限或 <activeTab> 的权限*\
+   *  *扩展程序必须拥有 <all_urls> 的权限或 <activeTab> 的权限*
    *
    *
-   * @param windowId  窗口的 id ，默认为当前窗口
-   * @param options   { type?: 'jpeg'; quality?: number }  图片信息？
-   * @param callback  回调
+   * @param {number} windowId  窗口的 id ，默认为当前窗口
+   * @param {object} options   { type?: 'jpeg'; quality?: number }  图片信息？
+   * @param {function} callback  回调
    */
   captureVisibleTab(
     windowId?: number,
@@ -254,7 +329,22 @@ export type CmTabs = {
     tableId: number,
     connectInfo?: { documentId?: string; frameId?: string; name?: string },
   ): Port;
-  /** #  创建新的标签页  */
+  /** #  创建新的标签页
+   *
+   * ```ts
+   * type CmTabsCreateProperties = {
+   *      active?: boolean;
+   *      index?: number;
+   *      openerTabId?: boolean;
+   *      pinned?: boolean;
+   *      selected?: boolean;
+   *      url?: string;
+   *      windowId?: number;
+   *  }
+   *
+   * ```
+   *
+   */
   create(
     createProperties: CmTabsCreateProperties,
     callback?: (tab?: CmTabsTab) => void,
@@ -327,7 +417,7 @@ export type CmTabs = {
     },
     callback?: (window: Window) => void,
   ): Promise<Window>;
-  /**  ~~insertCSS~~
+  /** #  ~~insertCSS~~
    *
    *  *在 Manifest V3  中，替换为 scripting.insertCSS*
    */
@@ -348,7 +438,53 @@ export type CmTabs = {
     },
     callback?: (tabs: CmTabsTab | CmTabsTab[]) => void,
   ): Promise<CmTabsTab | CmTabsTab[]>;
-  /** # 查询当前的标签 */
+  /** # 查询当前的标签
+   *
+   * ```ts
+   * type CmTabsQueryProperties = {
+   *  active?: boolean; // 是否活跃
+   *  currentWindow?: boolean; // 标签页是否位于当前窗口中
+   *  audible?: boolean; // 是否可听
+   *  autoDiscardable?: boolean; // 当资源不足时，浏览器是否可以自动舍弃标签页
+   *  groupId?: number; // 所属的群组
+   *  index?: number; //索引
+   *  highlight?: boolean; // 是否高亮
+   *  lastFocusedWindow?: boolean; // 是否为最后一个聚焦的窗口中
+   *  pinned?: boolean; // 是否已固定
+   *  selected?: boolean; //  ~~是否已选择~~ ，官方建议使用 highlighted
+   *  url?: string; // 网址
+   *  windowId?: number; // 窗口的 id
+   *  /** 标签页的状态
+   *   *
+   *   * ```ts
+   *   * type CmTabStatus = "unloaded" | "loading" | "complete"
+   *   * ```
+   *   * - unloaded 已卸载
+   *   * - loading 加载
+   *   * - complete 完成
+   *   *\/
+   *  status?: CmTabStatus;
+   *  title?: string; // 标题
+   *  discarded?: boolean; // 是否是舍弃的标签
+   *  /** 标签页静音相关
+   *   *
+   *   * ```ts
+   *   * type CmMutedInfo = {
+   *   *     extensionId?: string;
+   *   *     muted: boolean;
+   *   *     reason?: CmMutedInfoReason;
+   *   * }
+   *   *
+   *   *
+   *   * type CmMutedInfoReason = 'user' | 'capture' | 'extension';
+   *   * ```
+   *   *
+   *   *\/
+   *  mutedInfo?: CmMutedInfo;
+   *};
+   *
+   * ```
+   */
   query(
     queryInfo: CmTabsQueryProperties,
     callback?: (tabList: CmTabsTab[]) => void,
@@ -404,7 +540,22 @@ export type CmTabs = {
     zoomFactor: number,
     callback?: () => void,
   ): Promise<void>;
-  /**  指定标签页的缩放设置 */
+  /**  指定标签页的缩放设置
+   *
+   *
+   * ```ts
+   * type CmZoomSettings = {
+   *    defaultZoomFactor?: number;
+   *    model?: CmZoomSettingMode;
+   *    scope?: CmZoomSettingsScope;
+   * }
+   * ```
+   *  自定义标签页的缩放更改处理方式
+   *
+   *  - defaultZoomFactor 缩放的级别，在调用 tab.getZoomSettings 时返回
+   *  - model CmZoomSettingMode 定义缩放的变化
+   *  - scope CmZoomSettingsScope 缩放的范围
+   */
   setZoomSettings(
     tabId?: number,
     /**  @ts-ignore:   */

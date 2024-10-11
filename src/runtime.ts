@@ -106,6 +106,7 @@ export type CmRuntimeSender = {
    * 如果我们不能通过网址立即判断来源是否可信，这对于确定来源是否可信非常有用
    * */
   origin?: string;
+  /** 标签信息 */
   tab?: CmTabsTab;
   /**  打开连接的网页或框架的 `TLS` 通道 `ID`（如果扩展程序已请求并且可用） */
   tlsChannelId?: string;
@@ -152,13 +153,51 @@ export type PlatformArch =
   | 'mips'
   | 'mips64';
 
-/** 包含当前平台相关信息的对象  */
+/** 包含当前平台相关信息的对象
+ *
+ * ```ts
+ * type PlatformInfo = {
+ *      arch: PlatformArch;
+ *      nacl_arch: PlatformNaclArch;
+ *      os: PlatformOs;
+ *  }
+ * ```
+ *
+ */
 export type PlatformInfo = {
-  /** 机器的处理器架构 */
+  /** ## 机器的处理器架构
+   * ```ts
+   * type PlatformArch = "arm" | "arm64" | "x86-32" | "x86-64" | "mips" | "mips64"
+   * ```
+   * ### 机器的处理器架构
+   * - `arm` 将处理器架构指定为 `arm`
+   * - `arm64` 将处理器架构指定为 `arm64`
+   * - `x86-32` 将处理器架构指定为 `x86-32`
+   * - `x86-64` 将处理器架构指定为 `x86-64`
+   * - `mips` 以 `mips` 形式指定处理器架构
+   * - `mips64` 将处理器架构指定为 `mips64`
+   *
+   */
   arch: PlatformArch;
-  /** 原生客户端架构。这可能与某些平台上的 `arch` 不同 */
+  /** ## 原生客户端架构。这可能与某些平台上的 `arch` 不同
+   *
+   * ```ts
+   * type PlatformNaclArch = "arm" | "x86-32" | "x86-64" | "mips" | "mips64"
+   * ```
+   * ### 机器的处理器架构
+   * - `arm` 将处理器架构指定为 `arm`
+   * - `x86-32` 将处理器架构指定为 `x86-32`
+   * - `x86-64` 将处理器架构指定为 `x86-64`
+   * - `mips` 以 `mips` 形式指定处理器架构
+   * - `mips64` 将处理器架构指定为 `mips64`
+   */
   nacl_arch: PlatformNaclArch;
-  /** 运行 Chrome 的操作系统  */
+  /** ## 运行 Chrome 的操作系统
+   * ```ts
+   * type PlatformOs = "mac" | "win" | "android" | "cros" | "linux" | "openbsd" | "fuchsia"
+   * ```
+   *
+   */
   os: PlatformOs;
 };
 
@@ -199,7 +238,23 @@ export type Port = {
   onMessage: {
     addListener(callback: (message: unknown, port: Port) => void): unknown;
   };
-  /** 此属性仅存在于传递到 `onConnect` / `onConnectExternal` / `onConnectNative` 监听器的端口上 */
+  /** 此属性仅存在于传递到 `onConnect` / `onConnectExternal` / `onConnectNative` 监听器的端口上
+   *
+   * ```ts
+   * type CmRuntimeSender = {
+   *     documentId?: string;
+   *     documentLifecycle?: string;
+   *     frameId?: number;
+   *     id?: string;
+   *     nativeApplication?: string;
+   *     origin?: string;
+   *     tab?: CmTabsTab;
+   *     tlsChannelId?: string;
+   *     url?: string;
+   * }
+   * ```
+   *
+   */
   sender?: CmRuntimeSender;
   /** # 立即断开端口连接
    *
@@ -288,6 +343,20 @@ export type CmRuntime = {
    *
    * - chrome 116 以上版本
    * - MV3 以上版本
+   *
+   * ```ts
+   * type ContextFilter = {
+   *     contextIds?: string[];
+   *     contextTypes?: ContextType[];
+   *     documentIds?: string[];
+   *     documentOrigins?: string[];
+   *     documentUrls?: string[];
+   *     frameIds?: number[];
+   *     incognito?: boolean;
+   *     tabIds?: number[];
+   *     windowIds?: number[];
+   * }
+   * ```
    */
   getContexts(
     filter: ContextFilter,
@@ -324,6 +393,15 @@ export type CmRuntime = {
    */
   requestUpdateCheck(
     callback: (result: {
+      /**
+       *  ## 更新检查的结果
+       * ```ts
+       * type RequestUpdateCheckStatus = "throttled" | "no_update" | "update_available"
+       * ```
+       * - throttled 指定状态检查已节流。如果经过短时间内的反复检查，就可能会发生这种情况
+       * - no_update 表示没有可安装的更新
+       * - update_available 指定有可用更新可供安装
+       */
       status: RequestUpdateCheckStatus;
       version?: string;
     }) => void,
@@ -398,7 +476,17 @@ export type CmRuntime = {
   onInstalled: {
     addListener(
       callback: (details: {
-        /** 分派此事件的原因 */
+        /** ## 分派此事件的原因
+         * ```ts
+         * type OnInstalledReason = "install" | "update" | "chrome_update" | "shared_module_update"
+         * ```
+         * ### 分派此事件的原因
+         *  -  install 将事件原因指定为安装
+         *  -  update 以扩展程序更新的形式指定事件原因
+         *  -  chrome_update 将事件原因指定为 Chrome 更新
+         *  -  shared_module_update 将事件原因指定为共享模块的更新
+         *
+         */
         reason: OnInstalledReason;
         /** 指示已更新的导入的共享模块扩展程序的 ID。仅当“原因”存在时，是 `shared_module_update` */
         id?: string;
@@ -412,6 +500,22 @@ export type CmRuntime = {
     addListener(
       listenerEvent: (
         message: unknown,
+        /** ## 发送者信息
+         * ```ts
+         *  type CmRuntimeSender = {
+         *    documentId?: string;
+         *    documentLifecycle?: string;
+         *    frameId?: number;
+         *    id?: string;
+         *    nativeApplication?: string;
+         *    origin?: string;
+         *    tab?: CmTabsTab;
+         *    tlsChannelId?: string;
+         *    url?: string;
+         *}
+         *
+         * ```
+         */
         sender: CmRuntimeSender,
         sendResponse: () => void,
       ) => void,
@@ -422,6 +526,22 @@ export type CmRuntime = {
     addListener(
       callback: (
         message: any,
+        /** ## 发送者信息
+         * ```ts
+         *  type CmRuntimeSender = {
+         *    documentId?: string;
+         *    documentLifecycle?: string;
+         *    frameId?: number;
+         *    id?: string;
+         *    nativeApplication?: string;
+         *    origin?: string;
+         *    tab?: CmTabsTab;
+         *    tlsChannelId?: string;
+         *    url?: string;
+         *}
+         *
+         * ```
+         */
         sender: CmRuntimeSender,
         sendResponse: () => void,
       ) => boolean | undefined,
@@ -434,7 +554,20 @@ export type CmRuntime = {
    * - 目前，系统只会针对 Chrome 操作系统自助服务终端应用触发此事件。
    */
   onRestartRequired: {
-    addListener(callback: (reason: OnRestartRequiredReason) => void): void;
+    addListener(
+      callback: (
+        /**
+         * ## 分派事件的原因
+         * ```ts
+         * type OnRestartRequiredReason = "app_update" | "os_update" | "periodic"
+         *  ```
+         * - app_update 以应用更新的形式指定事件原因
+         * - os_update 将事件原因指定为操作系统更新
+         * - periodic 以定期重启应用的形式指定事件原因
+         */
+        reason: OnRestartRequiredReason,
+      ) => void,
+    ): void;
   };
   /** 在安装了此扩展程序的配置文件首次启动时触发。启动无痕模式个人资料时不会触发此事件，即使此扩展程序在“分屏”模式下运行也是如此无痕模式 */
   onStartup: {
@@ -471,7 +604,24 @@ export type CmRuntime = {
   onUserScriptMessage: {
     addListener(
       callback: (
+        /** 任意数据，但是官方建议为 JSON 格式的数据 */
         message: any,
+        /** ## 发送者信息
+         * ```ts
+         *  type CmRuntimeSender = {
+         *    documentId?: string;
+         *    documentLifecycle?: string;
+         *    frameId?: number;
+         *    id?: string;
+         *    nativeApplication?: string;
+         *    origin?: string;
+         *    tab?: CmTabsTab;
+         *    tlsChannelId?: string;
+         *    url?: string;
+         *}
+         *
+         * ```
+         */
         sender: CmRuntimeSender,
         sendResponse: () => void,
       ) => boolean | undefined,

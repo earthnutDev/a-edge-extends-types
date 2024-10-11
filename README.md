@@ -46,6 +46,7 @@ Only a very small part of the list is given at the moment, as shown below：
 
 - `action` (none)
 - `contextMenus`
+- `devtools` (all)
 - `i18n` (all)
 - `tts` (all)
 - `runtime`

@@ -1,8 +1,9 @@
+import { Devtools } from './src/devtools';
 import { Action } from './src/action';
 import { CmContextMenus } from './src/contextMenus';
 import { CmI18n } from './src/i18n';
 import { CmRuntime } from './src/runtime';
-import { CmStorage } from './src/storage';
+import { CmStorage, StorageChange } from './src/storage';
 import { CmTabs } from './src/tabs';
 import { CmTts } from './src/tts';
 
@@ -28,6 +29,7 @@ export type Chrome = {
    * - `sync`      云端的数据
    */
   storage: CmStorage;
+  /** 标签管理 */
   tabs: CmTabs;
   /** #  tts 语言配置
    * - `speak(str:string,options?:CmTtsSpeakOptions,callback:()=>void):void` 开始
@@ -72,4 +74,12 @@ export type Chrome = {
    *
    *  */
   contextMenus: CmContextMenus;
+  /**
+   * ## [开发者工具](https://developer.chrome.com/docs/extensions/how-to/devtools/extend-devtools?hl=zh-cn)
+   *
+   * -  `inspectedWindow`  使用 `chrome.devtools.inspectedWindow API` 与检查的窗口进行交互
+   *
+   *
+   */
+  devtools: Devtools;
 };

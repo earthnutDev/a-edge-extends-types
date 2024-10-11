@@ -31,7 +31,13 @@ export type DeleteInjectionDetails = {
   allFrames?: boolean;
   /** css 文本 */
   code?: string;
-  /** css 源 */
+  /** css 源
+   *
+   * ```ts
+   *  type  CSSOrigin =   "user" | "author"
+   * ```
+   *
+   */
   cssOrigin?: CSSOrigin;
   /** css 文件 */
   file?: string;

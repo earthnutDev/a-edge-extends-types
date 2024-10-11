@@ -38,16 +38,24 @@ export type StorageArea = {
   set(items: object, callback?: CallbackT): Promise<void>;
   /** 为存储区域设置所需的访问权限级别
    *
-   * 默认为仅限可信上下文 */
+   * 默认为仅限可信上下文
+   *
+   * ```ts
+   *  type AccessLevel = "TRUSTED_CONTEXTS" | "TRUSTED_AND_UNTRUSTED_CONTEXTS"
+   * ```
+   * ### 存储区域的访问权限级别
+   * - TRUSTED_CONTEXTS 指定源自扩展程序本身的上下文
+   * - TRUSTED_AND_UNTRUSTED_CONTEXTS 指定源自扩展程序外部的上下文
+   *  */
   setAccessLevel(
     accessOptions: { accessLevel: AccessLevel },
     callback?: () => void,
   ): Promise<void>;
 };
-/**  */
-export type StorageChange = {
-  newValue: unknown;
-  oldValue: unknown;
+/** 触发 `chrome.storage` 值变化时产生的数据 */
+export type StorageChange<T> = {
+  newValue: T;
+  oldValue: T;
 };
 
 export type CallbackT = (result: { [key: string]: unknown }) => void;
