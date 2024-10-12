@@ -1,22 +1,26 @@
 {
   "name": "a-edge-extends-types",
   "type": "module",
-  "version": "0.0.13",
+  "version": "0.0.18",
   "typings": "dist/index.d.ts",
   "author": "lmssee  <lmssee@outlook.com>  (https://lmssee.com)",
   "description": "You must be looking for `@types/chrome`. This is the zn-CN version //  some (not all) edge extends types",
   "scripts": {
-    "build": "npx ixxx rm dist && npm run b",
-    "b": "tsc -p ./tsconfig.types.json",
-    "eslint": "ixxx cls && eslint src",
+    "init": "node init.mjs -installOrUpdateAutoWrite",
+    "prebuild": "npx ixxx rm dist",
+    "build": "tsc -p ./tsconfig.types.json",
+    "postbuild": "rollup --config rollup.config.js",
+    "eslint": "npx ixxx cls && eslint src",
     "beautify": "npm run prettier",
-    "prettier": "ixxx cls && prettier . --write",
-    "versionPatch": "npm version patch --force --no-git-tag-version --allow-same-version=true",
-    "up": "npm run build &&  npm run versionPatch && npm publish"
+    "prettier": "npx ixxx cls && prettier . --write",
+    "preup": "npm run build",
+    "up": "npm version patch --force --no-git-tag-version --allow-same-version=true",
+    "postup": "node pub.js -pre  &&  npm publish && node pub.js -post"
   },
   "exports": {
     ".": "./dist/index.d.ts",
     "./tab": "./dist/src/tabs.d.ts",
+    "./devtools": "./dist/src/devtools.d.ts",
     "./i18n": "./dist/src/i18n.d.ts",
     "./action": "./dist/src/action.d.ts",
     "./runtime": "./dist/src/runtime.d.ts",
@@ -48,13 +52,17 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
+    "@types/node": "^22.5.5",
+    "@rollup/plugin-commonjs": "^28.0.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "@rollup/plugin-typescript": "^12.1.0",
+    "rollup": "^4.24.0",
     "typescript": "^5.5.3"
   },
   "bin": {
     "a-edge-extends-types": "init.mjs"
   },
   "dependencies": {
-    "@types/node": "^22.5.5",
     "a-node-tools": "^0.0.5"
   }
 }

@@ -4,6 +4,13 @@
     "Discardable",
     "immm",
     "nacl",
+    "posbuild",
+    "postbuild",
+    "postpublish",
+    "postup",
+    "postupdate",
+    "preuninstall",
+    "preup",
     "ungroup"
   ]
 }

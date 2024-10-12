@@ -2,10 +2,7 @@
 
 you must be looking for [`@types/chrome`](https://www.npmjs.com/package/@types/chrome)
 
-~~his is not a rollup plugin, but a type package for developing 'edge extend' using ts~~
-
-like title show。
-A description of the TS type of an [edge extends](), just a little bit, only some I used was given
+It's more like a Chinese version [`@types/chrome`](https://www.npmjs.com/package/@types/chrome) just a little bit, only some I used was given
 
 ## Development reference
 
@@ -38,7 +35,7 @@ declare global {
 }
 ```
 
-or use `npx immm` create this file，and include `tsconfig.json`
+The package automatically rewrites the file when it is installed or updated, if it doesn't you can use `npx immm` create this file，and include in `tsconfig.json`
 
 ## illustrate
 
