@@ -1,8 +1,16 @@
 # edge-extends-types
 
+## 0.0.19
+
+_10 月 12 日 2024 年_
+
+- 添加在卸载包的时候自动移除 `a-edge-extends-types.d.ts` 文件
+
 ## 0.0.18
 
 _10 月 12 日 2024 年_
+
+- 添加在安装或更新包的时候自动创建 `a-edge-extends-types.d.ts` 文件
 
 ## 0.0.13
 

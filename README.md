@@ -1,6 +1,6 @@
 # a edge extends types
 
-you must be looking for [`@types/chrome`](https://www.npmjs.com/package/@types/chrome)
+you may be looking for [`@types/chrome`](https://www.npmjs.com/package/@types/chrome)
 
 It's more like a Chinese version [`@types/chrome`](https://www.npmjs.com/package/@types/chrome) just a little bit, only some I used was given
 
