@@ -10,7 +10,7 @@ export default {
     preserveModules: true,
     sourcemap: false,
     exports: 'named',
-    dir: 'dist/',
+    dir: 'dist/init',
   },
   // 配置需要排除的包
   external: id => /^(node:)|^(tslib)/.test(id),

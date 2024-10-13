@@ -16,7 +16,7 @@ export function write(cwd: string) {
   /// 在测试环境未查找到正确的位置
   if (cwd === 'forbidden') return;
 
-  const fileName = 'a-edge-extends-types.d.ts';
+  const fileName = 'a-edge-extension-type.d.ts';
 
   const time = new Date();
 

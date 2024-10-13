@@ -16,7 +16,7 @@ It's more like a Chinese version [`@types/chrome`](https://www.npmjs.com/package
 ## install
 
 ```sh
-npm install --save a-edge-extends-types@latest
+npm install --save a-edge-extends-types@latest && npx immm
 ```
 
 ## use

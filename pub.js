@@ -18,7 +18,7 @@ const { scripts } = packageJson;
 /** 发布前向 package.json 文件添加内容 */
 if (args[2] === '-pre') {
   scripts.postinstall = scripts.postupdate = 'npm run init';
-  scripts.preuninstall = 'npx ixxx rm ../../a-edge-extends-types.d.ts';
+  scripts.preuninstall = 'npx ixxx rm "../../a-edge-extension-type.d.ts"';
 } else if (args[2] === '-post') {
   /// 在发布后移除前面添加的内容
   ['postinstall', 'postupdate', 'preuninstall'].map(ele => delete scripts[ele]);
