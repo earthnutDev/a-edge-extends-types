@@ -28,7 +28,7 @@ packageJson = {
   },
   repository: {
     type: 'git',
-    url: 'git+https://github.com/earthnutDev/a-edge-extends-typs.git',
+    url: 'git+https://github.com/earthnutDev/a-edge-extends-types.git',
   },
   keywords: ['a-edge-extends-types', 'earthnut'],
   author: {
