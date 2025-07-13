@@ -1,6 +1,6 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName edge-chrome
  * @FileName devtools.ts
  * @CreateDate  周四  10/10/2024

@@ -1,6 +1,6 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName a-edge-extends-types
  * @FileName extendKeepChrome.ts
  * @CreateDate  周日  09/15/2024

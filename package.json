@@ -1,68 +1,36 @@
 {
   "name": "a-edge-extends-types",
   "type": "module",
-  "version": "0.0.21",
-  "typings": "dist/index.d.ts",
-  "author": "lmssee  <lmssee@outlook.com>  (https://lmssee.com)",
-  "description": "You must be looking for `@types/chrome`. This is the zn-CN version //  some (not all) edge extends types",
+  "version": "0.0.22",
+  "description": "中文版的 chrome 类型",
   "scripts": {
     "init": "node init.mjs -installOrUpdateAutoWrite",
-    "prebuild": "npx ixxx rm dist",
-    "build": "tsc -p ./tsconfig.types.json",
-    "postbuild": "rollup --config rollup.config.js",
-    "eslint": "npx ixxx cls && eslint src",
+    "build": "jja rm dist && tsc -p ./tsconfig.types.json && rollup --config rollup.config.js && npm run clean:package",
+    "clean:package": "node ./scripts/clean-package-json.js",
+    "diff": "jja pkg -d",
+    "eslint": "jja cls && eslint src",
     "beautify": "npm run prettier",
-    "prettier": "npx ixxx cls && prettier . --write",
-    "preup": "npm run build",
-    "up": "npm version patch --force --no-git-tag-version --allow-same-version=true",
-    "postup": "node pub.js -pre  &&  npm publish && node pub.js -post"
+    "prettier": "jja cls && prettier . --write",
+    "push:version": "gvv",
+    "push": "gvv",
+    "vjj": "vjj -b",
+    "prepublishOnly": "pjj"
   },
-  "exports": {
-    ".": "./dist/index.d.ts",
-    "./tab": "./dist/src/tabs.d.ts",
-    "./devtools": "./dist/src/devtools.d.ts",
-    "./i18n": "./dist/src/i18n.d.ts",
-    "./action": "./dist/src/action.d.ts",
-    "./runtime": "./dist/src/runtime.d.ts",
-    "./extensionTypes": "./dist/src/extensionTypes.d.ts",
-    "./storage": "./dist/src/storage.d.ts",
-    "./contextMenus": "./dist/src/contextMenus.d.ts",
-    "./tts": "./dist/src/tts.d.ts"
-  },
-  "files": [
-    "dist/",
-    "init.mjs"
-  ],
-  "keywords": [
-    "edge-extends-types",
-    "rollup-plugin"
-  ],
-  "license": "ISC",
-  "homepage": "https://lmssee.com/edge-extends-types",
-  "bugs": {
-    "url": "https://github.com/lmssee/edge-extends-types/issues",
-    "email": "lmssee@outlook.com"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lmssee/npm-a-edge-extends-types.git"
-  },
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
+  "license": "MIT",
   "devDependencies": {
-    "@types/node": "^22.5.5",
     "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-typescript": "^12.1.0",
+    "@types/node": "^22.5.5",
+    "a-node-tools": "^4.2.12",
+    "gvv": "^0.1.0",
+    "pjj": "^1.0.2",
     "rollup": "^4.24.0",
-    "typescript": "^5.5.3"
-  },
-  "bin": {
-    "a-edge-extends-types": "init.mjs"
+    "rollup-plugin-copy": "^3.5.0",
+    "typescript": "^5.5.3",
+    "vjj": "^1.0.7"
   },
   "dependencies": {
-    "a-node-tools": "^0.0.5"
+    "jja": "^2.3.10"
   }
 }

@@ -1,27 +1,23 @@
-# a edge extends types
+# 一个 edge 扩展的 chrome 的类型
 
-you may be looking for [`@types/chrome`](https://www.npmjs.com/package/@types/chrome)
-
-It's more like a Chinese version [`@types/chrome`](https://www.npmjs.com/package/@types/chrome) just a little bit, only some I used was given
+着更像是一个中文版的 [@types/chrome](https://www.npmjs.com/package/@types/chrome)，仅一点点，只有我用到的给出了
 
 ## Development reference
 
-- [edge extends reference doc](https://learn.microsoft.com/en-us/microsoft-edge/extensions-chromium/)
-- [chrome api reference](https://developer.chrome.com/docs/extensions/reference/api/tts)
+- [edge extends reference doc](https://learn.microsoft.com/zh-cn/microsoft-edge/extensions-chromium/)
+- [chrome api reference](https://developer.chrome.com/docs/extensions/reference/api/tts?hl=zh-cn).
 
-## language
+## 安装
 
-[English](https://github.com/lmssee/npm-a-edge-extends-types/blob/main/README.md) [中文](https://github.com/lmssee/npm-a-edge-extends-types/blob/main/自述文件.md)
-
-## install
+使用 `npm` 进行安装
 
 ```sh
-npm install --save a-edge-extends-types@latest && npx immm
+npm install --save a-edge-extends-types@latest
 ```
 
-## use
+## 使用
 
-must create `chrome.d.ts` file, file context：
+需在项目的根目录添加 `chrome.d.ts` 文件，文件内容：
 
 ```ts
 import { Chrome } from 'a-edge-extends-types';
@@ -35,23 +31,23 @@ declare global {
 }
 ```
 
-The package automatically rewrites the file when it is installed or updated, if it doesn't you can use `npx immm` create this file，and include in `tsconfig.json`
+包会在安装或是更新时自动写入该文件，若没有。则需要使用 `npx immm` 创建该文件，并保证 `tsconfig.json` 能正确的识别到该文件即可
 
-## illustrate
+## 说明
 
-Only a very small part of the list is given at the moment, as shown below：
+当前仅给出了特别少的一部分，如下列表：
 
-- `action` (none)
-- `contextMenus`
+- `action` （啥也没有）
+- `i18n` (全部)
+- `contextMenus` (貌似全部)
 - `devtools` (all)
-- `i18n` (all)
-- `tts` (all)
+- `tts` （全部）
 - `runtime`
   - `onload`
   - `sendMessage`
   - `onMessage`
     - `addListener`
-- `storage` (all)
-- `tabs` (all)
+- `storage` (全部)
+- `tabs` （全部）
 
-If you have any questions, you can directly [submit feedback](https://github.com/lmssee/npm-a-edge-extends-types/issues/new)
+_如插件出现问题或更好的建议，您可以在 [github 提交问题](https://github.com/lmssee/npm-a-edge-extends-types/issues/new)_

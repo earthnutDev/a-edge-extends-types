@@ -1,7 +1,7 @@
 import { CmConTextMenusCreateProperties } from './contextMenus';
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName edge-extends-types
  * @FileName tabs.ts
  * @CreateDate  周一  09/11/2024
@@ -13,6 +13,18 @@ import { CmI18nLanguage } from './i18n';
 import { Port } from './runtime';
 
 /** #  窗口信息
+ *
+ * 使用标签页数据，需要 `tabs` 访问权限，譬如使用 `url`、`pendingUrl`、`title`、`favIconUrl` 调用 `tabs.query()`
+ *
+ * ```json
+ * {
+ *   "permissions" : [
+ *      "tabs"
+ *    ]
+ * }
+ * ```
+ *
+ *
  *
  * -  active: boolean   是否活跃
  * -  audible?: boolean  在过去的几秒钟是否发声

@@ -1,6 +1,6 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName edge-chrome
  * @FileName testEnvironment.ts
  * @CreateDate  周五  10/11/2024

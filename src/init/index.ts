@@ -1,12 +1,12 @@
+#! /usr/bin/env node
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName edge-chrome
  * @FileName init.ts
  * @CreateDate  周五  10/11/2024
  * @Description 执行一段写入
  ****************************************************************************/
-
 import { testEnvironment } from './testEnvironment';
 import { write } from './write';
 

@@ -1,6 +1,6 @@
 /****************************************************************************
- * @Author lmssee
- * @Email lmssee@outlook.com
+ * @Author earthnut
+ * @Email earthnut.dev@outlook.com
  * @ProjectName edge chrome
  * @FileName write.ts
  * @CreateDate  周五  10/11/2024
@@ -23,8 +23,8 @@ export function write(cwd: string) {
   writeFile(
     path.join(cwd, fileName),
     `/****************************************************************************
-* @Author lmssee
-* @Email lmssee@outlook.com
+* @Author earthnut
+* @Email earthnut.dev@outlook.com
 * @FileName ${fileName}
 * @CreateDate  周${
       ['日', '一', '二', '三', '四', '五', '六'][time.getDay()]
