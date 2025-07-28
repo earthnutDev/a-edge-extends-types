@@ -2,10 +2,10 @@
 
 着更像是一个中文版的 [@types/chrome](https://www.npmjs.com/package/@types/chrome)，仅一点点，只有我用到的给出了
 
-## Development reference
+## 开发手册
 
-- [edge extends reference doc](https://learn.microsoft.com/zh-cn/microsoft-edge/extensions-chromium/)
-- [chrome api reference](https://developer.chrome.com/docs/extensions/reference/api/tts?hl=zh-cn).
+- [edge 扩展手册](https://learn.microsoft.com/zh-cn/microsoft-edge/extensions-chromium/)
+- [chrome 扩展手册 api](https://developer.chrome.com/docs/extensions/reference/api/tts?hl=zh-cn).
 
 ## 安装
 
@@ -50,4 +50,6 @@ declare global {
 - `storage` (全部)
 - `tabs` （全部）
 
-_如插件出现问题或更好的建议，您可以在 [github 提交问题](https://github.com/lmssee/npm-a-edge-extends-types/issues/new)_
+## 文档地址
+
+[earthnut.dev](https://earthnut.dev/npm/edge-chrome)

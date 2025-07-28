@@ -36,7 +36,7 @@ packageJson = {
     email: 'earthnut.dev@outlook.com',
     url: 'https://earthnut.dev/about',
   },
-  homepage: 'https://earthnut.dev/a-edge-extends-types',
+  homepage: 'https://earthnut.dev/npm/a-edge-extends-types',
   bugs: {
     url: 'https://github.com/earthnutDev/a-edge-extends-types/issues',
     email: 'earthnut.dev@outlook.com',

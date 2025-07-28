@@ -1,7 +1,7 @@
 {
   "name": "a-edge-extends-types",
   "type": "module",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "中文版的 chrome 类型",
   "scripts": {
     "init": "node init.mjs -installOrUpdateAutoWrite",
